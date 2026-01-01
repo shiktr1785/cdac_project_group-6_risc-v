@@ -1,1 +1,1 @@
-# cdac_project_group-6_risc-v
+# C-DAC Final Project | Group - 6 | RISC-V
