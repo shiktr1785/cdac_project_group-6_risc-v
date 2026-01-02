@@ -1,0 +1,16 @@
+name: Discord Notifications
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send message to Discord
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: https://discord.com/api/webhooks/1456699922320589066/lComeUGVpE01CQ_Jsp92Kni0tiGMMdaJBkx2GWKEJ0mXtvN4i1LWuYucetFGNpI_9GK6
+        with:
+          args: "A new event occurred in the repository."
