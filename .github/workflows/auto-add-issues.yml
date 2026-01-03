@@ -16,7 +16,7 @@ jobs:
       - name: Add issue to project
         run: |
           gh project item-add 4 \
-            --owner shiktr1785 \
+            --owner @me \
             --url "${{ github.event.issue.html_url }}"
         env:
           GH_TOKEN: ${{ secrets.PROJECT_PAT }}
