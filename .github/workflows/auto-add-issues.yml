@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Add issue to project
-        uses: actions/add-to-project@v1
+        uses: actions/add-to-project@v1.0.1
         with:
           project-url: https://github.com/users/shiktr1785/projects/4
           github-token: ${{ secrets.GITHUB_TOKEN }}
