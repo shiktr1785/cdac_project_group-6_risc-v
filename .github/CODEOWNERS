@@ -1,0 +1,11 @@
+# Verification files
+tb/**        @shiktr1785 @Ritik-Kalmegh
+uvm_tb/**    @shiktr1785
+tests/**     @shiktr1785
+
+# Design files
+rtl/**       @AlenSojan @VMOnGit @Ritik-Kalmegh
+
+# Scripts and documentation
+scripts/**   @shiktr1785 @VMOnGit
+docs/**      @PrithwinPrakash @AlenSojan

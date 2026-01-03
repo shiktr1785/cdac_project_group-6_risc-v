@@ -1,0 +1,43 @@
+name: Discord Issue Routing
+
+on:
+  issues:
+    types: [opened, labeled]
+
+jobs:
+  route:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Verification
+        if: contains(github.event.issue.labels.*.name, 'verification')
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_VERIFICATION_WEBHOOK }}
+        with:
+          args: |
+            🧪 **Verification Issue**
+            #${{ github.event.issue.number }} — ${{ github.event.issue.title }}
+            🔗 ${{ github.event.issue.html_url }}
+
+            📌 **Summary**
+            ${{ github.event.issue.body }}
+
+            🔗 Full details: ${{ github.event.issue.html_url }}
+
+            
+
+      - name: Notify Design
+        if: contains(github.event.issue.labels.*.name, 'design')
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_DESIGN_WEBHOOK }}
+        with:
+          args: |
+            🧠 **Design Issue**
+            #${{ github.event.issue.number }} — ${{ github.event.issue.title }}
+            🔗 ${{ github.event.issue.html_url }}
+
+            📌 **Summary**
+            ${{ github.event.issue.body }}
+
+            🔗 Full details: ${{ github.event.issue.html_url }}
