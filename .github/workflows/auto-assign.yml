@@ -1,0 +1,34 @@
+name: Auto assign issues
+
+on:
+  issues:
+    types: [opened, labeled]
+
+jobs:
+  assign:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const labels = issue.labels.map(l => l.name);
+
+            let assignee = null;
+
+            if (labels.includes('design-alu')) {
+              assignee = 'shiktr1785';
+            }
+
+            if (labels.includes('verification-alu')) {
+              assignee = 'shiktr1785';
+            }
+
+            if (assignee) {
+              await github.rest.issues.addAssignees({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                assignees: [assignee]
+              });
+            }
