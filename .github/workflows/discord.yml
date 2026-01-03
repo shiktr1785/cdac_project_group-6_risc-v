@@ -2,15 +2,27 @@ name: Discord Notifications
 
 on:
   push:
+    branches:
+      - main
   pull_request:
+    types:
+      - opened
+      - closed
 
 jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
       - name: Send message to Discord
+        if: |
+          github.event_name == 'push' ||
+          (github.event_name == 'pull_request' && github.event.pull_request.merged == true) ||
+          (github.event_name == 'pull_request' && github.event.action == 'opened')
         uses: Ilshidur/action-discord@master
         env:
-          DISCORD_WEBHOOK: https://discord.com/api/webhooks/1456699922320589066/lComeUGVpE01CQ_Jsp92Kni0tiGMMdaJBkx2GWKEJ0mXtvN4i1LWuYucetFGNpI_9GK6
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          args: "A new event occurred in the repository."
+          args: |
+            **Repository:** ${{ github.repository }}
+            **Event:** ${{ github.event_name }}
+            **Actor:** ${{ github.actor }}
