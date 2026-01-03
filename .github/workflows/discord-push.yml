@@ -20,6 +20,6 @@ jobs:
             **Author:** ${{ github.actor }}
             **Commit:** ${{ github.sha }}
             **Message:** ${{ github.event.head_commit.message || 'Pull request opened/merged' }}
-            **Timestamp:** ${{ github.event.head_commit.timestamp || github.event.pull_request.created_at || github.event.pull_request.merged_at }}
+            **Timestamp:** ${{ github.event.head_commit.timestamp || github.event.repository.pushed_at}}
             
 
