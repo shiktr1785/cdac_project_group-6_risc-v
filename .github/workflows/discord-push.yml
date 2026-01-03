@@ -1,0 +1,25 @@
+name: Discord - Push to Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notify-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Discord (Push)
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          args: |
+            🚀 **Code pushed to `main`**
+            **Repository:** ${{ github.repository }}
+            **Author:** ${{ github.actor }}
+            **Commit:** ${{ github.sha }}
+            **Message:** ${{ github.event.head_commit.message || 'Pull request opened/merged' }}
+            **Timestamp:** ${{ github.event.head_commit.timestamp || github.event.pull_request.created_at || github.event.pull_request.merged_at }}
+            
+
