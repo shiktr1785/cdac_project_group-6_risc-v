@@ -4,6 +4,12 @@ on:
   issues:
     types: [opened]
 
+permissions:
+  issues: write
+  pull-requests: write
+  repository-projects: write
+
+
 jobs:
   add-to-project:
     runs-on: ubuntu-latest

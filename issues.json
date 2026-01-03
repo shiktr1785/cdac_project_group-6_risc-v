@@ -12,5 +12,27 @@
     "labels": ["verification-alu", "feature", "P1-high"],
     "assignee": "shiktr1785",
     "milestone": "Verification Phase"
-  }
+  },
+  {
+  "title": "[DESIGN][REGFILE] Implement Sequential Address Iteration Logic",
+  "body": "### Description\nImplement sequential address iteration logic in the register file / memory block as per specification.\n\n### Requirements\n- Address pointer increments sequentially on each valid operation\n- Proper wrap-around handling at maximum address\n- Support for read and write enable signals\n- Reset initializes address pointer to base address\n\n### Reference\n- Verification test plan: Sequential address iteration\n\n### Acceptance Criteria\n- RTL compiles cleanly\n- Directed simulation passes\n- Address sequencing strictly follows spec",
+  "labels": [
+    "design-regfile",
+    "feature",
+    "P1-high"
+  ],
+  "assignee": "shiktr1785",
+  "milestone": "Design Phase"
+},
+{
+  "title": "[VERIF][REGFILE] Verify Sequential Address Iteration Operation",
+  "body": "### Description\nVerify sequential address iteration behavior of the register file / memory block based on the approved test plan.\n\n### Test Scenarios\n- Sequential address increment from base to max\n- Wrap-around behavior validation\n- Read-after-write consistency across iterations\n- Reset asserted during active iteration\n\n### Coverage Goals\n- Full address range coverage\n- Reset × iteration cross coverage\n- Read/Write enable combinations covered\n\n### Deliverables\n- Directed SystemVerilog testcases (non-UVM)\n- Functional coverage report\n- Simulation result summary\n\n### Reference\n- Approved test plan JSON",
+  "labels": [
+    "verification-integration",
+    "feature",
+    "P1-high"
+  ],
+  "assignee": "shiktr1785",
+  "milestone": "Verification Phase"
+}
 ]
