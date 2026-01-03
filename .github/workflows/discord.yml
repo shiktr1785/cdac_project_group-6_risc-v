@@ -26,3 +26,10 @@ jobs:
             **Repository:** ${{ github.repository }}
             **Event:** ${{ github.event_name }}
             **Actor:** ${{ github.actor }}
+            **Details:** ${{ github.event.pull_request.html_url || github.event.head_commit.url }}
+            **Message:** ${{ github.event.head_commit.message || 'Pull request opened/merged' }}
+            **Ref:** ${{ github.ref }}
+            **Commit SHA:** ${{ github.sha }}
+            **Timestamp:** ${{ github.event.head_commit.timestamp || github.event.pull_request.created_at || github.event.pull_request.merged_at }}
+            **Branch:** ${{ github.ref }}
+            
