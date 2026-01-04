@@ -1,6 +1,6 @@
 # GitHub Labeling Guide (WHAT–WHY–WHEN)
 
-## Purpose
+## 🎯 Purpose
 This project uses a strict labeling system to ensure:
 - Clear task ownership
 - No ambiguity in priorities
@@ -13,18 +13,26 @@ Every issue must clearly answer:
 
 ---
 
-## Label Categories
+## 🏷️ Label Categories
 
-### 1. WHAT — Component Labels
+
+
+### 1. WHAT — 🛠️ Component Labels
 These describe **which part of the system** the issue belongs to.
 
 Examples:
-- design-alu
-- design-decoder
-- design-regfile
-- verification-alu
-- verification-integration
-- docs
+
+>| Label Name              | Description                   |
+>|------------------------|-------------------------------|
+>| `design-alu`           | ALU RTL design                | 
+>| `design-decoder`       | Instruction decode logic      | 
+>| `design-regfile`       | Register file design          | 
+>| `verification-alu`     | ALU verification              | 
+>| `verification-decoder` | Decoder verification          | 
+>| `verification-integration` | Integration verification | 
+>| `integration`          | Cross-module integration      | 
+>| `docs`                 | Documentation                 |
+
 
 Rules:
 - Exactly ONE component label per issue
@@ -33,15 +41,15 @@ Rules:
 
 ---
 
-### 2. WHY — Issue Type Labels
+### 2. WHY — 🧠 Issue Type Labels
 These describe **why the issue exists**.
 
-Allowed labels:
-- feature — new functionality
-- bug — incorrect or broken behavior
-- enhancement — improvement to existing logic
-- cleanup — refactoring or formatting
-- test — testbench or coverage work
+>| Label Name     | Description           |
+>|----------------|-----------------------|
+>| `feature`      | New functionality     |
+>| `bug`          | Bug fix               |
+>| `enhancement`  | Improvement           |
+>| `cleanup`      | Refactor or cleanup   |
 
 Rules:
 - Exactly ONE type label
@@ -49,14 +57,15 @@ Rules:
 
 ---
 
-### 3. WHEN — Priority Labels
+### 3. WHEN — ⏱️ Priority Labels
 These describe **urgency and execution order**.
 
-Priority levels:
-- P0-critical — blocks other work
-- P1-high — important
-- P2-medium — normal priority
-- P3-low — optional / polish
+>| Label Name     | Description        |
+>|----------------|--------------------|
+>| `P0-critical`  | Blocks other work  |
+>| `P1-high`      | High priority      |
+>| `P2-medium`    | Normal priority    |
+>| `P3-low`       | Low priority       |
 
 Rules:
 - Exactly ONE priority label
@@ -64,7 +73,7 @@ Rules:
 
 ---
 
-## Ownership
+## 📌 Ownership
 Ownership is defined by the **Assignee**, not labels.
 
 Rules:
@@ -73,7 +82,7 @@ Rules:
 
 ---
 
-## Valid Issue Checklist
+## ✅ Valid Issue Checklist
 An issue is valid only if:
 - One WHAT label
 - One WHY label
@@ -83,7 +92,35 @@ An issue is valid only if:
 
 ---
 
-## Philosophy
+## 🤖 Automated Label Validation
+
+All new issues are **automatically validated** using a GitHub Action.
+
+### What is validated
+On issue creation, the workflow checks that:
+
+- Exactly **one WHAT label** is present
+- Exactly **one WHY label** is present
+- Exactly **one WHEN label** is present
+- An **assignee** is set
+
+### What happens if validation fails
+- The issue is **automatically flagged**
+- A bot comment explains what is missing
+- The issue may be **closed automatically** if not fixed
+
+### Important Notes
+- Validation is enforced by automation, not manually
+- Re-opening an issue without fixing labels will re-trigger validation
+- Do **not** bypass the workflow by removing labels later
+
+> 📌 If your issue fails validation, **fix the labels and assignee** — do not create a new issue.
+
+---
+
+
+
+## 📖 Philosophy
 Labels provide visibility.
 Issues provide ownership.
 

@@ -9,6 +9,7 @@
 *.log
 .DS_Store
 Thumbs.db
+*.github-issues
 
 .vscode/
 .idea/
