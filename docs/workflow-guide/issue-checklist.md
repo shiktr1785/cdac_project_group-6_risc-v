@@ -1,4 +1,4 @@
-# Issue Creation Checklist
+# 📝 Issue Creation Checklist
 
 Before submitting an issue, confirm:
 
@@ -11,15 +11,22 @@ Before submitting an issue, confirm:
 
 ---
 
-## Example
+## 📌 Example Issue
 
-Title:
-[TASK] Implement ALU shift operations
-
-Labels:
-design-alu
-feature
-P0-critical
-
-Assignee:
-One engineer
+>
+>**[VERIF][MEM] Add sequential address iteration testcase**
+>
+>**Labels**
+>- WHAT: `verification` design-alu
+>- WHY: `feature` feature
+>- WHEN: `medium` P0-critical
+>
+>**Assignee**
+>-@contributor1
+>
+>**Issue Description (summary)**
+>- Implement verification testcase for sequential address iteration
+>- Validate read/write behavior across address range
+>- Add basic checks and logging
+>
+---

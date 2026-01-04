@@ -11,16 +11,15 @@ This repository contains the **design, verification, and automation setup** for 
 
 ---
 
-## 👥 Team Members
-- Shikhar Mani Tripathi  
+## 👥 Team Members  
 - Alen Sojan  
 - Prithwin Prakash  
-- Ritik Kalmegh  
+- Ritik Kalmegh
+- Shikhar Mani Tripathi
 - Sidharth V Menon  
-
 ---
 
-## 📂 Repository Contents
+## [📂 Repository Contents](#repository-layout)
 - RTL design (SystemVerilog)
 - Verification testcases and plans
 - GitHub Issues and Project tracking
@@ -35,9 +34,12 @@ This repository contains the **design, verification, and automation setup** for 
 - Communication and updates happen via **Discord**
 - Verification and checks are automated where feasible
 
----
+> For detailed workflow guidelines, labeling conventions, and repository structure, please refer to the `docs/` directory.
+>
+> - [Issue Creation Checklist](docs/workflow-guide/issue-checklist.md)
+> - [Labeling Guide](docs/workflow-guide/labeling-guide.md)
+> - [Naming Conventions](docs/workflow-guide/naming-convention.md)
 
-> 📌 This project emphasizes **verification discipline, collaboration, and documentation**, not just RTL implementation.
 
 ---
 ---
@@ -204,3 +206,9 @@ Only new **block subdirectories** may be added.
 No ad-hoc restructuring is permitted.
 
 Violations may result in PR rejection.
+
+---
+
+> 📌 This project emphasizes **verification discipline, collaboration, and documentation**, not just RTL implementation.
+>
+> 📌 Please adhere to all **guidelines** to ensure a smooth development process.

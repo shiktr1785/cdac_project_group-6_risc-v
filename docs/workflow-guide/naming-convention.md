@@ -158,3 +158,31 @@ regfile_reset_test
 >| Ready | `<name>_ready` |
 
 Example:
+```
+i_opcode
+o_result
+write_en
+resp_valid
+```
+
+
+---
+
+## 6️⃣ What Is Not Allowed ❌
+
+- Mixing RTL and TB files
+- Capital letters in identifiers
+- Tool-specific files in `rtl/` or `tb/`
+- Arbitrary abbreviations
+- Multiple naming styles
+
+---
+
+## 7️⃣ Enforcement Rule
+
+Any code that violates this document:
+- Must be fixed before review
+- Will not be merged
+- May block CI and automation
+
+This document is authoritative.
