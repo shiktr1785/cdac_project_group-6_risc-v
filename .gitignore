@@ -1,0 +1,142 @@
+############################################
+# OS / Editor / General
+############################################
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+
+.vscode/
+.idea/
+*.code-workspace
+
+############################################
+# Build / Output (Generic)
+############################################
+build/
+out/
+output/
+dist/
+tmp/
+
+############################################
+# Simulation Artifacts (Common)
+############################################
+*.vcd
+*.fsdb
+*.wlf
+*.trn
+*.trn.log
+*.db
+*.key
+*.jou
+
+############################################
+# Icarus Verilog (iverilog)
+############################################
+*.vvp
+a.out
+iverilog_out/
+iverilog_sim/
+
+############################################
+# Verilator
+############################################
+obj_dir/
+*.d
+*.o
+*.a
+*.so
+*.exe
+verilator.log
+verilator.out
+coverage.dat
+coverage.info
+
+############################################
+# QuestaSim / ModelSim
+############################################
+work/
+worklib/
+transcript
+vsim.wlf
+modelsim.ini
+questa_sim/
+qrun.log
+qrun.out
+qrun.db
+
+############################################
+# Vivado Suite
+############################################
+.vivado/
+.vivado_hls/
+
+# Vivado project folders
+*.runs/
+*.cache/
+*.hw/
+*.ip_user_files/
+*.sim/
+*.srcs/
+*.xpr
+
+# Vivado generated files
+*.jou
+*.log
+*.str
+*.zip
+*.tmp
+*.pb
+*.dcp
+*.ltx
+*.bit
+*.bin
+*.hwh
+
+############################################
+# FPGA / Synthesis Outputs
+############################################
+*.edf
+*.edif
+*.ngc
+*.ncd
+*.pof
+*.sof
+*.rpt
+*.sdf
+
+############################################
+# Coverage / Regression
+############################################
+cov/
+coverage/
+regression/
+results/
+
+############################################
+# Python / TCL helpers
+############################################
+__pycache__/
+*.pyc
+*.pyo
+
+############################################
+# UVM / Verification specific
+############################################
+uvm.log
+uvm_report*
+seed.log
+random_seed.txt
+
+############################################
+# Do NOT ignore (keep these!)
+############################################
+!.gitignore
+!README.md
+!docs/
+!scripts/
