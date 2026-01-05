@@ -26,10 +26,12 @@ Examples:
 >|------------------------|-------------------------------|
 >| `design-alu`           | ALU RTL design                | 
 >| `design-decoder`       | Instruction decode logic      | 
->| `design-regfile`       | Register file design          | 
+>| `design-regfile`       | Register file design          |
+>| `design-instr-mem`     | Instruction memory design     | 
 >| `verification-alu`     | ALU verification              | 
 >| `verification-decoder` | Decoder verification          | 
->| `verification-integration` | Integration verification | 
+>| `verification-integration` | Integration verification |
+>| `verification-instr-mem` | Instruction memory verification | 
 >| `integration`          | Cross-module integration      | 
 >| `docs`                 | Documentation                 |
 
