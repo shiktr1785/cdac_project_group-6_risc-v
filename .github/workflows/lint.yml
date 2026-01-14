@@ -36,7 +36,7 @@ jobs:
             chmod +x sim/verilator/deps.sh
 
 #########################################################
-##  Chnage file detection
+##  Change file detection
 #########################################################
       - name: Get changed SystemVerilog Files
         id: changed-files
@@ -107,7 +107,7 @@ jobs:
 #########################################################
 
 #########################################################
-##  Discord nofitication section
+##  Discord notification section
 #########################################################
 
   nofity-discord-on-failure:
