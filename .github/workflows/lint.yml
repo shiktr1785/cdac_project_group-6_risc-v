@@ -1,4 +1,4 @@
-name: RTL Lint Check
+name: PR Scoped Verilator Lint + Discord Notification
 
 on:
   pull_request:
@@ -6,33 +6,131 @@ on:
       - main
       - develop
 
-  push:
-    branches:
-      - main
-
 jobs:
-  verilator-lint:
-    name: Verilator Lint
+  verilator-pr-lint:
+    name: Verilator PR Lint
     runs-on: ubuntu-latest
 
+#########################################################
+##  Checkout repository
+#########################################################
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0    # REQUIRED for git diff
 
+#########################################################
+##  Verilator Install
+#########################################################
       - name: Install Verilator
         run: |
-          sudo apt-get update
-          sudo apt-get install -y verilator
+            sudo apt-get update
+            sudo apt-get install -y verilator
 
-      - name: Verilator RTL Lint
+#########################################################
+##  Verilator Dependencies policy
+#########################################################
+      - name: Load Verilator Dependency policy
         run: |
-            verilator --lint-only --Wall -sv $(find rtl -name "*.sv")
+            chmod +x sim/verilator/deps.sh
 
-      - name: Verilator TB Lint
+#########################################################
+##  Chnage file detection
+#########################################################
+      - name: Get changed SystemVerilog Files
+        id: changed-files
         run: |
+            git diff --name-only origin/${{github.base_ref}} ...HEAD \
+              | grep -E '\.sv$' > changed_sv_files.txt || true
+
+            echo "Changed SV files:"
+            cat changed_sv_files.txt || echo "None"
+
+#########################################################
+##  PR isolation policy
+#########################################################
+      - name: Enforce PR isolation policy
+        run: |
+            RTL_CHANGED=$(grep -c '^rtl/' changed_sv_files.txt || true)
+            TB_CHANGED=$(grep -c '^tb/' changed_sv_files.txt || true)
+
+            if [ -n "$RTL_CHANGED" ] && [ -n "$TB_CHANGED" ]; then
+              echo "ERROR: PR modifies both RTL and TB files"
+              echo "Policy: RTL and TB changes must be in separate PRs"
+              exit 1
+            fi
+
+#########################################################
+##  RTL linting section
+######################################################### 
+      - name: Lint changed RTL file
+        run: |
+            source sim/verilator/deps.sh
+
+            RTL_FILES=$(grep '^rtl/' chnaged_sv_files.txt || true)
+
+            if [ -z "$RTL_FILES" ]; then
+              echo "INFO: No RTL files changed"
+              exit 0
+            fi
+
             verilator \
-            --lint-only \
-            --Wall \
-            -sv \
-            --lint-config sim/verilator/verilator.lint \
-            $(find tb -name "*.sv")
+              --lint-only \
+              --Wall \
+              -sv \
+              ${RTL_DEPS[@]} \
+              $RTL_FILES
+
+#########################################################
+##  TB Linting Section
+#########################################################
+      - name: Lint changed TB files
+        run: |
+            source sim/verilator/deps.sh
+
+            TB_FILES=$(grep '^tb/' changed_sv_files.txt || true)
+
+            if [ -z "$TB_FILES" ]; then
+              echo "INFO: No TB files changed"
+              exit 0
+            fi
+
+            verilator \
+              --lint-only \
+              --wall \
+              -sv \
+              --lint-config sim/verilator/verilator.lint \
+              ${RTL_DEPS[@]} \
+              $TB_FILES
+
+#########################################################
+
+#########################################################
+##  Discord nofitication section
+#########################################################
+
+  nofity-discord-on-failure:
+    name: Notify Discord (Lint Failed)
+    runs-on: ubuntu-latest
+    needs: verilator-pr-lint
+
+    # this is the key 
+    if: failure()
+
+    steps:
+      - name: Notify Discord (Lint Failed)
+        uses: Ilshidur/action-discord@master
+
+        env:
+          DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}
+        with:
+          args: |
+            ❌ **Lint Failed for Pull Request**
+            **Title:** ${{ github.event.pull_request.title }}
+            **Author:** ${{ github.event.pull_request.user.login }}
+            **Branch:** ${{ github.event.pull_request.head.ref }}
+            **Base:** ${{ github.event.pull_request.base.ref }}
+            **PR:** ${{ github.event.pull_request.html_url }}
+
+            🔧 Please fix lint errors before requesting review.
