@@ -4,8 +4,12 @@ uvm_tb/**    @shiktr1785
 tests/**     @shiktr1785
 
 # Design files
-rtl/**       @AlenSojan @VMOnGit @Ritik-Kalmegh
+rtl/**       @AlenSojan @VMOnGit @Ritik-Kalmegh @shiktr1785 @PrithwinPrakash
 
 # Scripts and documentation
 scripts/**   @shiktr1785 @VMOnGit
 docs/**      @PrithwinPrakash @AlenSojan
+sim/**       @shiktr1785
+
+# workflow files
+.github/**   @shiktr1785

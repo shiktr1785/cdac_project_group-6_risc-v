@@ -1,0 +1,38 @@
+name: RTL Lint Check
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+
+  push:
+    branches:
+      - main
+
+jobs:
+  verilator-lint:
+    name: Verilator Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Verilator
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y verilator
+
+      - name: Verilator RTL Lint
+        run: |
+            verilator --lint-only --Wall -sv $(find rtl -name "*.sv")
+
+      - name: Verilator TB Lint
+        run: |
+            verilator \
+            --lint-only \
+            --Wall \
+            -sv \
+            --lint-config sim/verilator/verilator.lint \
+            $(find tb -name "*.sv")
