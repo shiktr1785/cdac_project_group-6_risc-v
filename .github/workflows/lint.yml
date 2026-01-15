@@ -68,7 +68,7 @@ jobs:
         run: |
             source sim/verilator/deps.sh
 
-            RTL_FILES=$(grep '^rtl/' chnaged_sv_files.txt || true)
+            RTL_FILES=$(grep '^rtl/' changed_sv_files.txt || true)
 
             if [ -z "$RTL_FILES" ]; then
               echo "INFO: No RTL files changed"
