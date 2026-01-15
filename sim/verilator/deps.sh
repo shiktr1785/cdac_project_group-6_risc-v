@@ -1,19 +1,28 @@
 #!/usr/bin/env bash
+set -e
 
 RTL_DEPS=()
 TB_DEPS=()
 
-# Add RTL deps only if they exist
+# RTL dependencies (add only if file exists)
 for f in \
   rtl/common/pkg.sv \
   rtl/common/defines.sv
 do
-  [ -f "$f" ] && RTL_DEPS+=("$f")
+  if [ -f "$f" ]; then
+    RTL_DEPS+=("$f")
+  fi
 done
 
-# Add TB deps only if they exist
+# TB dependencies
 for f in \
   tb/global/uvm_pkg.sv
 do
-  [ -f "$f" ] && TB_DEPS+=("$f")
+  if [ -f "$f" ]; then
+    TB_DEPS+=("$f")
+  fi
 done
+
+# Debug (temporary, remove later)
+echo "RTL_DEPS = ${RTL_DEPS[@]}"
+echo "TB_DEPS  = ${TB_DEPS[@]}"

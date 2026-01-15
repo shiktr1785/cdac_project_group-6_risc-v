@@ -75,6 +75,7 @@ jobs:
               exit 0
             fi
 
+            echo "Linting RTL files: $RTL_FILES"
             verilator \
               --lint-only \
               --Wall \
