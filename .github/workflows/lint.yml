@@ -52,8 +52,8 @@ jobs:
 #########################################################
       - name: Enforce PR isolation policy
         run: |
-            RTL_CHANGED=$(grep -c '^rtl/' changed_sv_files.txt || true)
-            TB_CHANGED=$(grep -c '^tb/' changed_sv_files.txt || true)
+            RTL_CHANGED=$(grep '^rtl/' changed_sv_files.txt || true)
+            TB_CHANGED=$(grep '^tb/' changed_sv_files.txt || true)
 
             if [ -n "$RTL_CHANGED" ] && [ -n "$TB_CHANGED" ]; then
               echo "ERROR: PR modifies both RTL and TB files"
