@@ -41,7 +41,7 @@ jobs:
       - name: Get changed SystemVerilog Files
         id: changed-files
         run: |
-            git diff --name-only origin/${{github.base_ref}} ...HEAD \
+            git diff --name-only origin/${{github.base_ref}}...HEAD \
               | grep -E '\.sv$' > changed_sv_files.txt || true
 
             echo "Changed SV files:"
