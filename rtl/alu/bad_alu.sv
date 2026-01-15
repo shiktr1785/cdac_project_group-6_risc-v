@@ -8,4 +8,5 @@ module bad_alu;
     assign c = d;   // Error: 'd' is not declared
     assign g = f;   // Error: 'g' is not declared
     assign m = l;   // Error: 'm' is not declared
+    assign n = o;   // Error: 'o' is not declared
 endmodule
