@@ -1,13 +1,19 @@
 #!/usr/bin/env bash
 
-# Common RTL dependencies (packages, interfaces)
-RTL_DEPS=(
-  rtl/common/pkg.sv
-  rtl/common/defines.sv
-)
+RTL_DEPS=()
+TB_DEPS=()
 
-# Common TB dependencies
-TB_DEPS=(
-  tb/common/pkg.sv
-  tb/common/defines.sv
-)
+# Add RTL deps only if they exist
+for f in \
+  rtl/common/pkg.sv \
+  rtl/common/defines.sv
+do
+  [ -f "$f" ] && RTL_DEPS+=("$f")
+done
+
+# Add TB deps only if they exist
+for f in \
+  tb/global/uvm_pkg.sv
+do
+  [ -f "$f" ] && TB_DEPS+=("$f")
+done
