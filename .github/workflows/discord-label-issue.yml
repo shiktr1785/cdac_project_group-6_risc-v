@@ -1,43 +1,106 @@
-name: Discord Issue Routing
+name: Discord Issue Router (Enhanced)
 
 on:
   issues:
-    types: [opened, labeled, assigned, closed]
+    types: [opened, assigned, closed]
 
 jobs:
   route:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Notify Verification
-        if: contains(github.event.issue.labels.*.name, 'verification')
+      # -----------------------------------------
+      # Step 1: Prepare routing and rich context
+      # -----------------------------------------
+      - name: Prepare routing and message
+        id: ctx
+        run: |
+          ACTION="${{ github.event.action }}"
+          LABELS="${{ join(github.event.issue.labels.*.name, ',') }}"
+
+          WEBHOOK="${{ secrets.DISCORD_WEBHOOK }}"
+          ROLE=""
+          TITLE=""
+          COLOR=""
+          EXTRA=""
+
+          # Route by label
+          if [[ "$LABELS" == *"verification"* ]]; then
+            WEBHOOK="${{ secrets.DISCORD_VERIFICATION_WEBHOOK }}"
+            ROLE="<@&${{ vars.DISCORD_VERIFICATION_ROLE_ID }}>"
+            COLOR="🧪"
+          elif [[ "$LABELS" == *"design"* ]]; then
+            WEBHOOK="${{ secrets.DISCORD_DESIGN_WEBHOOK }}"
+            ROLE="<@&${{ vars.DISCORD_DESIGN_ROLE_ID }}>"
+            COLOR="🧠"
+          fi
+
+          # Event-aware message
+          case "$ACTION" in
+            opened)
+              TITLE="🆕 New Issue Created"
+              ;;
+            assigned)
+              TITLE="👤 Issue Assigned"
+              EXTRA="👤 Assigned to: @${{ github.event.assignee.login }}"
+              ;;
+            closed)
+              TITLE="✅ Issue Closed"
+              ;;
+          esac
+
+          echo "webhook=$WEBHOOK" >> $GITHUB_OUTPUT
+          echo "role=$ROLE" >> $GITHUB_OUTPUT
+          echo "title=$TITLE" >> $GITHUB_OUTPUT
+          echo "extra=$EXTRA" >> $GITHUB_OUTPUT
+          echo "color=$COLOR" >> $GITHUB_OUTPUT
+
+      # -----------------------------------------
+      # Step 2: Notify Discord (rich but quiet)
+      # -----------------------------------------
+      - name: Notify Discord
         uses: Ilshidur/action-discord@master
         env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_VERIFICATION_WEBHOOK }}
+          DISCORD_WEBHOOK: ${{ steps.ctx.outputs.webhook }}
         with:
           args: |
-            🧪 **Verification Issue**
-            #${{ github.event.issue.number }} — ${{ github.event.issue.title }}
+            **${{ steps.ctx.outputs.color }} ${{ steps.ctx.outputs.title }}**
+
+            📌 **Issue #${{ github.event.issue.number }}**
+            📝 **${{ github.event.issue.title }}**
+
+            🗂 **Repo:** ${{ github.repository }}
+            ${{ steps.ctx.outputs.extra }}
+
             🔗 ${{ github.event.issue.html_url }}
 
-            📌 **Summary**
-            ${{ github.event.issue.body }}
+            ${{ steps.ctx.outputs.role }}
 
-            🔗 Full details: ${{ github.event.issue.html_url }}
+      # -----------------------------------------
+      # Step 3: Add checklist on first assignment
+      # -----------------------------------------
+      - name: Add assignment checklist
+        if: github.event.action == 'assigned'
+        env:
+          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
+        run: |
+          BODY=$(gh issue view ${{ github.event.issue.number }} \
+            --repo ${{ github.repository }} \
+            --json body \
+            -q .body)
 
+          # Prevent duplicate checklist
+          if echo "$BODY" | grep -q "🧩 Assignment Checklist"; then
+            echo "Checklist already present. Skipping."
+            exit 0
+          fi
+
+          gh issue comment ${{ github.event.issue.number }} \
+            --repo ${{ github.repository }} \
+            --body "**🧩 Assignment Checklist**
             
-
-      - name: Notify Design
-        if: contains(github.event.issue.labels.*.name, 'design')
-        uses: Ilshidur/action-discord@master
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_DESIGN_WEBHOOK }}
-        with:
-          args: |
-            🧠 **Design Issue**
-            #${{ github.event.issue.number }} — ${{ github.event.issue.title }}
-            🔗 ${{ github.event.issue.html_url }}
-
-            📌 **Summary**
-            ${{ github.event.issue.body }}
-
-            🔗 Full details: ${{ github.event.issue.html_url }}
+            - [ ] Understand issue requirements  
+            - [ ] Update testcase / RTL / TB  
+            - [ ] Run simulation & debug  
+            - [ ] Push changes  
+            - [ ] Raise PR & link this issue"
