@@ -2,7 +2,7 @@ name: Discord Issue Routing
 
 on:
   issues:
-    types: [opened, labeled]
+    types: [opened, labeled, assigned, closed]
 
 jobs:
   route:
