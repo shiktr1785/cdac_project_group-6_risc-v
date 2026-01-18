@@ -1,13 +1,13 @@
 [
   {
-    "title": "[TASK] Implement ALU arithmetic operations",
+    "title": "[DESIGN][ALU] Implement ALU arithmetic operations",
     "body": "ADD, SUB implementation\n\nAcceptance:\n- Synthesizable RTL\n- Unit test passes",
     "labels": ["design-alu", "feature", "P0-critical"],
     "assignee": "shiktr1785",
     "milestone": "Design Phase"
   },
   {
-    "title": "[TASK] ALU verification environment",
+    "title": "[VERIF][ALU] ALU verification environment",
     "body": "Create basic verification setup for ALU\n\nAcceptance:\n- Directed tests\n- Coverage points added",
     "labels": ["verification-alu", "feature", "P1-high"],
     "assignee": "shiktr1785",
@@ -36,7 +36,7 @@
     "milestone": "Verification Phase"
 },
 {
-    "title": "[DOCS][TASK] Create RV32I architecture block diagram",
+    "title": "[DOCS] Create RV32I architecture block diagram",
     "body": "Create a detailed block diagram illustrating the RV32I architecture, including key components such as the ALU, register file, control unit, and memory interfaces.\n\nAcceptance Criteria:\n- Diagram is clear and accurately represents the RV32I architecture\n- Includes labels for all major components\n- Suitable for inclusion in project documentation",
     "labels": ["docs", "feature", "P1-high"],
     "assignee": "shiktr1785",
