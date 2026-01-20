@@ -2,7 +2,7 @@
 `define __DECODER_IF_SV
 
 interface decoder_if #(
-    integer BUS_WIDTH = 31,
+    integer BUS_WIDTH = 32,
     integer OPCODE_WIDTH = 11,
     integer ADDR_WIDTH = 5)
    
