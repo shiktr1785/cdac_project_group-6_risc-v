@@ -1,10 +1,9 @@
 `ifndef __DECODER_IF_SV
 `define __DECODER_IF_SV
 
-interface decoder_if #(
-    integer BUS_WIDTH = 31,
-    integer OPCODE_WIDTH = 11,
-    integer ADDR_WIDTH = 5)
+`include "params.svh"
+
+interface decoder_if
     (input logic clk);
 
     // Interface signals
