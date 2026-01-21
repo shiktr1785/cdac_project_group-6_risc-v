@@ -67,7 +67,6 @@ jobs:
       - name: Lint changed RTL file
         run: |
             source sim/verilator/deps.sh
-
             RTL_FILES=$(grep '^rtl/' changed_sv_files.txt || true)
 
             if [ -z "$RTL_FILES" ]; then
@@ -75,13 +74,20 @@ jobs:
               exit 0
             fi
 
-            echo "Linting RTL files: $RTL_FILES"
-            verilator \
-              --lint-only \
-              --Wall \
-              -sv \
-              ${RTL_DEPS[@]} \
-              $RTL_FILES
+            for FILE in $RTL_FILES; do
+              # Get filename without path and extension
+              TOP_MOD=$(basename "$FILE" .sv)
+              
+              echo "Linting RTL file: $FILE (Top: $TOP_MOD)"
+              verilator \
+                --lint-only \
+                --Wall \
+                -sv \
+                --top-module "$TOP_MOD" \
+                sim/verilator/verilator.vlt \
+                ${RTL_DEPS[@]} \
+                "$FILE"
+            done
 
 #########################################################
 ##  TB Linting Section
@@ -89,7 +95,6 @@ jobs:
       - name: Lint changed TB files
         run: |
             source sim/verilator/deps.sh
-
             TB_FILES=$(grep '^tb/' changed_sv_files.txt || true)
 
             if [ -z "$TB_FILES" ]; then
@@ -97,13 +102,19 @@ jobs:
               exit 0
             fi
 
-            verilator \
-              --lint-only \
-              --wall \
-              -sv \
-              --lint-config sim/verilator/verilator.lint \
-              ${RTL_DEPS[@]} \
-              $TB_FILES
+            for FILE in $TB_FILES; do
+              TOP_MOD=$(basename "$FILE" .sv)
+
+              echo "Linting TB file: $FILE (Top: $TOP_MOD)"
+              verilator \
+                --lint-only \
+                --wall \
+                -sv \
+                --top-module "$TOP_MOD" \
+                sim/verilator/verilator.vlt \
+                ${RTL_DEPS[@]} \
+                "$FILE"
+            done
 
 #########################################################
 
