@@ -7,6 +7,7 @@ lint_off -rule UNDRIVEN
 // 2. Project-wide UNUSED suppression
 // Use this if you don't care about unused wires in RTL
 lint_off -rule UNUSED
+lint_off -rule MULTITOP
 
 // 3. Common SystemVerilog TB noise (Optional but recommended)
 lint_off -rule PINCONNECTEMPTY
