@@ -3,13 +3,14 @@
 
 interface decoder_if #(
     integer BUS_WIDTH = 32,
-    integer OPCODE_WIDTH = 11,
+    integer OPCODE_WIDTH = 4,
     integer ADDR_WIDTH = 5)
    
     (input bit clk);
 
     //Interface signals
-
+    
+    
     // Inputs to the Decoder Unit
     logic                       instr_valid;  //instr_valid indicates if the current instruction is valid
     logic   [BUS_WIDTH-1:0]     instr; 
@@ -24,6 +25,8 @@ interface decoder_if #(
     logic                       rs_addr_sel;    //RS MUX
     logic                       rs_addr_valid;  //RS valid
 
+    
+    `ifndef VERILATOR
     //the current instruction to be decoded
     clocking drv_cb @(posedge clk);
 
@@ -56,9 +59,10 @@ interface decoder_if #(
         input rs_addr_valid;
 
     endclocking
+    `endif
 
     //driver direction
-    modport driver (
+    modport driver(
         output instr_valid,
         output instr,
         output op_done,
@@ -69,7 +73,7 @@ interface decoder_if #(
         input rs_addr,          
         input rs_addr_sel,      
         input rs_addr_valid   
-        ); 
+    ); 
 
     //monitor direction
     modport monitor(
@@ -88,5 +92,7 @@ interface decoder_if #(
 endinterface : decoder_if
 
 `endif
+
+
 
  
