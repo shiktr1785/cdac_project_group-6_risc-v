@@ -3,21 +3,27 @@
 
 interface regfile_if #(
     integer BUS_WIDTH = 32,
-    integer ADDR_WIDTH = 5,
-    )(input logic clk)
+    integer ADDR_WIDTH = 5
+    )(input bit clk);
 
 
     //interface signals
-    logic [4:0]  rs_addr;
-    logic        rs_addr_sel;
-    logic [4:0]  rs_addr_valid;
-    logic [4:0]  rd_addr;
-    logic [31:0] rs_data;
-    logic        rs_data_sel;
-    logic [31:0] rs_data_valid;
+    logic [ADDR_WIDTH-1:0]  rs_addr;
+    logic                   rs_addr_sel;
+    logic [ADDR_WIDTH-1:0]  rs_addr_valid;
+    logic [ADDR_WIDTH-1:0]  rd_addr;
+    logic [BUS_WIDTH-1:0]   rs_data;
+    logic                   rs_data_sel;
+    logic [BUS_WIDTH-1:0]   rs_data_valid;
+
+    // Verilator will skip this block
+    `ifndef VERILATOR
 
     //Clocking Block for Driver and Monitor
     clocking drv_cb @(posedge clk);
+
+        //Input is sampled in preponed region while output is sampled 1ns after clock edge
+        default input #1step output #1;
         output rs_addr;
         output rs_addr_sel;
         output rd_addr;
@@ -28,18 +34,38 @@ interface regfile_if #(
     endclocking
 
     clocking mon_cb @(posedge clk);
-        output rs_addr;
-        output rs_addr_sel;
-        output rd_addr;
-        output rs_addr_valid;
+        default input #1step output #1;
+        input rs_addr;
+        input rs_addr_sel;
+        input rd_addr;
+        input rs_addr_valid;
         input  rs_data;
         input  rs_data_sel;
         input  rs_data_valid;
     endclocking
 
+    `endif
+
     //Defining directions for driver and monitor
-    modport driver @(clocking drv_cb);
-    modport monitor @(clocking mon_cb);
+    modport driver (
+        output rs_addr,
+        output rs_addr_sel,
+        output rd_addr,
+        output rs_addr_valid,
+        input  rs_data,
+        input  rs_data_sel,
+        input  rs_data_valid);
+
+    modport monitor (
+        input rs_addr,
+        input rs_addr_sel,
+        input rd_addr,
+        input rs_addr_valid,
+        input  rs_data,
+        input  rs_data_sel,
+        input  rs_data_valid
+    );
+
 
 endinterface : regfile_if
 
