@@ -1,0 +1,13 @@
+`verilator_config
+// 1. High-frequency TB silencers
+lint_off -rule VARHIDDEN
+lint_off -rule DECLFILENAME
+lint_off -rule UNDRIVEN
+
+// 2. Project-wide UNUSED suppression
+// Use this if you don't care about unused wires in RTL
+lint_off -rule UNUSED
+
+// 3. Common SystemVerilog TB noise (Optional but recommended)
+lint_off -rule PINCONNECTEMPTY
+lint_off -rule IMPORTSTAR
