@@ -6,7 +6,7 @@ interface decoder_if #(
     integer OPCODE_WIDTH = 11,
     integer ADDR_WIDTH = 5)
    
-    (input logic clk);
+    (input bit clk);
 
     //Interface signals
 
@@ -26,12 +26,12 @@ interface decoder_if #(
 
     //the current instruction to be decoded
     clocking drv_cb @(posedge clk);
+
         default input #1step output #1;      
         output instr_valid;
         output instr;
         output op_done;
         output next_instr;
-
         input imme_value;       
         input opcode;           
         input rd_addr;          
@@ -42,12 +42,12 @@ interface decoder_if #(
     endclocking
 
     clocking mon_cb @(posedge clk);
+        
         default input #1step output #1;
-        output instr;
-        output instr_valid;
-        output op_done;
-        output next_instr;
-
+        input instr;
+        input instr_valid;
+        input op_done;
+        input next_instr;
         input imme_value;            
         input opcode;
         input rd_addr;
@@ -57,11 +57,36 @@ interface decoder_if #(
 
     endclocking
 
-    modport driver (clocking drv_cb); 
     //driver direction
-    modport monitor(clocking mon_cb);
+    modport driver (
+        output instr_valid,
+        output instr,
+        output op_done,
+        output next_instr,
+        input imme_value,      
+        input opcode,       
+        input rd_addr,          
+        input rs_addr,          
+        input rs_addr_sel,      
+        input rs_addr_valid   
+        ); 
+
     //monitor direction
+    modport monitor(
+        input instr,
+        input instr_valid,
+        input op_done,
+        input next_instr,
+        input imme_value,            
+        input opcode,
+        input rd_addr,
+        input rs_addr,
+        input rs_addr_sel,
+        input rs_addr_valid
+    );
+    
 endinterface : decoder_if
 
 `endif
+
  
