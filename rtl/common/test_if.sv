@@ -8,7 +8,7 @@ interface test_if
     #(
         parameter integer DATA_WIDTH = 5
     )(
-        logic clk
+        input logic clk
     );
 
     logic req;
