@@ -4,26 +4,25 @@ set -e
 RTL_DEPS=()
 TB_DEPS=()
 
-RTL_INC_DIRS=()
-TB_INC_DIRS=()
-
-# RTL include directories
-[ -d rtl/common ] && RTL_INC_DIRS+=("rtl/common")
-
-# TB include directories
-[ -d tb/global ] && TB_INC_DIRS+=("tb/global")
-
-# RTL compilation units (only .sv, never .svh)
+# RTL dependencies (add only if file exists)
 for f in \
   rtl/common/pkg.sv \
   rtl/common/defines.sv
 do
-  [ -f "$f" ] && RTL_DEPS+=("$f")
+  if [ -f "$f" ]; then
+    RTL_DEPS+=("$f")
+  fi
 done
 
-# TB compilation units
+# TB dependencies
 for f in \
   tb/global/uvm_pkg.sv
 do
-  [ -f "$f" ] && TB_DEPS+=("$f")
+  if [ -f "$f" ]; then
+    TB_DEPS+=("$f")
+  fi
 done
+
+# Debug (temporary, remove later)
+echo "RTL_DEPS = ${RTL_DEPS[@]}"
+echo "TB_DEPS  = ${TB_DEPS[@]}"
