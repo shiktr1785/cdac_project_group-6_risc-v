@@ -85,10 +85,12 @@ jobs:
               --Wall \
               -sv \
               --top-module "$TOP_MOD" \
+              $(printf -- "-I%s " "${RTL_INC_DIRS[@]}") \
               sim/verilator/verilator.vlt \
               ${RTL_DEPS[@]} \
               "$FILE"
           done
+
 
 
 #########################################################
@@ -115,10 +117,12 @@ jobs:
               --Wall \
               -sv \
               --top-module "$TOP_MOD" \
+              $(printf -- "-I%s " "${TB_INC_DIRS[@]}") \
               sim/verilator/verilator.vlt \
               ${TB_DEPS[@]} \
               "$FILE"
           done
+          
 
 
 #########################################################
