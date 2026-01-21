@@ -64,57 +64,62 @@ jobs:
 #########################################################
 ##  RTL linting section
 ######################################################### 
-      - name: Lint changed RTL file
+      - name: Lint changed RTL files
         run: |
-            source sim/verilator/deps.sh
-            RTL_FILES=$(grep '^rtl/' changed_sv_files.txt || true)
+          source sim/verilator/deps.sh
 
-            if [ -z "$RTL_FILES" ]; then
-              echo "INFO: No RTL files changed"
-              exit 0
-            fi
+          RTL_FILES=$(grep '^rtl/' changed_sv_files.txt || true)
 
-            for FILE in $RTL_FILES; do
-              # Get filename without path and extension
-              TOP_MOD=$(basename "$FILE" .sv)
-              
-              echo "Linting RTL file: $FILE (Top: $TOP_MOD)"
-              verilator \
-                --lint-only \
-                --Wall \
-                -sv \
-                --top-module "$TOP_MOD" \
-                sim/verilator/verilator.vlt \
-                ${RTL_DEPS[@]} \
-                "$FILE"
-            done
+          if [ -z "$RTL_FILES" ]; then
+            echo "INFO: No RTL files changed"
+            exit 0
+          fi
+
+          for FILE in $RTL_FILES; do
+            TOP_MOD=$(basename "$FILE" .sv)
+
+            echo "Linting RTL file: $FILE (Top: $TOP_MOD)"
+
+            verilator \
+              --lint-only \
+              --Wall \
+              -sv \
+              --top-module "$TOP_MOD" \
+              sim/verilator/verilator.vlt \
+              ${RTL_DEPS[@]} \
+              "$FILE"
+          done
+
 
 #########################################################
 ##  TB Linting Section
 #########################################################
       - name: Lint changed TB files
         run: |
-            source sim/verilator/deps.sh
-            TB_FILES=$(grep '^tb/' changed_sv_files.txt || true)
+          source sim/verilator/deps.sh
 
-            if [ -z "$TB_FILES" ]; then
-              echo "INFO: No TB files changed"
-              exit 0
-            fi
+          TB_FILES=$(grep '^tb/' changed_sv_files.txt || true)
 
-            for FILE in $TB_FILES; do
-              TOP_MOD=$(basename "$FILE" .sv)
+          if [ -z "$TB_FILES" ]; then
+            echo "INFO: No TB files changed"
+            exit 0
+          fi
 
-              echo "Linting TB file: $FILE (Top: $TOP_MOD)"
-              verilator \
-                --lint-only \
-                --wall \
-                -sv \
-                --top-module "$TOP_MOD" \
-                sim/verilator/verilator.vlt \
-                ${RTL_DEPS[@]} \
-                "$FILE"
-            done
+          for FILE in $TB_FILES; do
+            TOP_MOD=$(basename "$FILE" .sv)
+
+            echo "Linting TB file: $FILE (Top: $TOP_MOD)"
+
+            verilator \
+              --lint-only \
+              --Wall \
+              -sv \
+              --top-module "$TOP_MOD" \
+              sim/verilator/verilator.vlt \
+              ${TB_DEPS[@]} \
+              "$FILE"
+          done
+
 
 #########################################################
 
