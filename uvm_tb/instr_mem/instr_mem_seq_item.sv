@@ -1,10 +1,25 @@
 `ifndef __INSTR_MEM_SEQ_ITEM_SV
 `define __INSTR_MEM_SEQ_ITEM_SV
 
+<<<<<<< Updated upstream
 class instr_mem_seq_item extends uvm_sequence_item;
     
     //Factory Registration
     `uvm_object_utils(instr_mem_seq_item)
+=======
+class instr_mem_seq_item #(
+    parameter integer ADDR_WIDTH = 5, parameter integer BUS_WIDTH = 32
+    ) 
+    extends uvm_sequence_item;
+
+    `uvm_object_utils(instr_mem_seq_item #(ADDR_WIDTH, BUS_WIDTH))
+    
+    // Data members
+    // 1 - OP_done,push out the instruction; 0 - Stop instruction 
+    rand bit                    next_instr;
+         bit [BUS_WIDTH-1:0]    instruction;
+
+>>>>>>> Stashed changes
 
     // Data members
     // 1 - OP_done,push out the instruction; 0 - Stop instruction 
@@ -34,11 +49,19 @@ class instr_mem_seq_item extends uvm_sequence_item;
         OOB_c.constraint_mode(0); //Disable OOB constraint by default
     endfunction
 
+<<<<<<< Updated upstream
     function void print();
         //Prints the status of the next_instruction
         `uvm_info("next_instr_status", $sformatf("next_instr = %0b", next_instr), UVM_LOW)  
         `uvm_info("instruction_status", $sformatf("instruction = %0b", instruction), UVM_LOW)
+=======
+    function void display();
+        //Prints the status of the next_op
+        `uvm_info("next_op_status", $sformatf("next_op = %0b", next_instr), UVM_LOW)  
+>>>>>>> Stashed changes
     endfunction
+
 endclass:instr_mem_seq_item
     
 `endif
+
