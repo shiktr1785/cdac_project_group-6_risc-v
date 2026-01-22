@@ -1,7 +1,6 @@
 `ifndef __INSTR_MEM_SEQUENCE_SV
 `define __INSTR_MEM_SEQUENCE_SV
 
-<<<<<<< Updated upstream
 class instr_mem_sequence extends uvm_sequence #(instr_mem_seq_item);
 
     `uvm_object_utils(instr_mem_sequence)
@@ -84,20 +83,3 @@ endclass: oob_instr_mem_sequence
 
 
 
-=======
-
-class instr_mem_sequence  extends uvm_sequence#(instr_mem_seq_item);
-    `uvm_object_param_utils(instr_mem_sequence)
-
-    function new(string name = "instr_mem_sequence");
-        super.new(name);
-    endfunction
-
-    virtual task body();
-        instr_mem_seq_item next_seq; 
-        `uvm_do(next_seq)             //next_seq is created , randomized and sent to the driver
-    endtask
-endclass: instr_mem_sequence
-
-`endif
->>>>>>> Stashed changes
