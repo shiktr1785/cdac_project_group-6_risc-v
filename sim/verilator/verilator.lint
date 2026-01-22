@@ -1,7 +1,0 @@
-// Global silencers for TB code
-lint_off -rule VARHIDDEN
-lint_off -rule DECLFILENAME
-lint_off -rule UNDRIVEN
-
-// Directory-scoped waiver
-lint_off -rule UNUSED -file "tb/global/*"
