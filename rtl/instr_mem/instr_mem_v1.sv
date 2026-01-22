@@ -11,7 +11,7 @@ module instr_mem_v1 #(
   logic [$clog2(DEPTH)-1:0] current_address;  //current_address
   always_ff @(posedge clock or negedge reset_n) begin : mem_block
     if (!reset_n) begin
-      current_address <= 5'b0;
+      current_address <= 6'b0;
       instr <= 32'b0;
     end else begin
       if (next_op) begin
