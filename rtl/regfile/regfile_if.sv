@@ -16,7 +16,7 @@ interface regfile_if #(
     logic                   rs_data_sel;
     logic [BUS_WIDTH-1:0]   rs_data_valid;
 
-    // Verilator will skip this block
+    //  will skip this block
     `ifndef VERILATOR
 
     //Clocking Block for Driver and Monitor
