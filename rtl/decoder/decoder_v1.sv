@@ -1,4 +1,4 @@
-module decoder_auto (
+module decoder_v1 (
     // For alu
     output logic [ 3:0] alu_opcode,        // {funct7,funct3}
     output logic [31:0] alu_imme,          //Sign extended output immediate data
