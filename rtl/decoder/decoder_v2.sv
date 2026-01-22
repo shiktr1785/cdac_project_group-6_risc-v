@@ -1,7 +1,7 @@
 module decoder_v2 (
     // For alu
     output logic [ 3:0] opcode,         // {funct7,funct3}
-    output logic [31:0] imme_value,     //Sign extended output immediate data
+    output logic [31:0] imme_data,     //Sign extended output immediate data
     output logic        rd2_imme_sel,   //Selecting between immediate and rs2 data in mux,
     // For reg file
     output logic [14:0] rs1_rs2_rd,
@@ -131,13 +131,13 @@ module decoder_v2 (
 
     // Immediate generation
     if (decoded_instr_type == I_TYPE) begin
-      imme_value = {{21{instr_reg[31]}}, instr_reg[30:20]};
+      imme_data = {{21{instr_reg[31]}}, instr_reg[30:20]};
     end else if (decoded_instr_type == S_TYPE) begin
-      imme_value = {{21{instr_reg[31]}}, instr_reg[30:25], instr_reg[11:7]};
+      imme_data = {{21{instr_reg[31]}}, instr_reg[30:25], instr_reg[11:7]};
       // Note: S-Type immediate split is different in standard RISC-V
       // but kept close to your logic logic for simplicity.
     end else begin
-      imme_value = 32'b0;
+      imme_data = 32'b0;
     end
 
     // FSM Output Control
