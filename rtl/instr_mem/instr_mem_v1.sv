@@ -7,8 +7,8 @@ module instr_mem_v1 #(
     input  logic        reset_n
 );
 
-  logic [           31:0] instr_mem                          [DEPTH-1];  //memory block
-  logic [$clog2(DEPTH):0] current_address;  //current_address
+  logic [             31:0] instr_mem                          [DEPTH-1];  //memory block
+  logic [$clog2(DEPTH)-1:0] current_address;  //current_address
   always_ff @(posedge clock or negedge reset_n) begin : mem_block
     if (!reset_n) begin
       current_address <= 5'b0;
@@ -51,3 +51,4 @@ module instr_mem_v1 #(
     end
   end
 endmodule  // instr_mem_v1
+
