@@ -7,7 +7,7 @@ This repository contains the **design, verification, and automation setup** for 
 ---
 
 ## 👨‍🏫 Project Guide
-- **Dr. Amit Chavan**
+- **Mr. Amit Chavan**
 
 ---
 
