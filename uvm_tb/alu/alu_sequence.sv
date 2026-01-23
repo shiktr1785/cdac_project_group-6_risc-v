@@ -33,7 +33,7 @@ class alu_sequence #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) extends uvm_seque
     }
 
     constraint imme_value_boundary_c {
-        soft seq_item.imme_value inside {32'h00000000,  32'h00000001,  32'hFFFFFFFF,  32'h7FFFFFFF,  32'h80000000, 32'hAAAAAAAA, 32'h55555555};
+        soft seq_item.imme_rs inside {32'h00000000,  32'h00000001,  32'hFFFFFFFF,  32'h7FFFFFFF,  32'h80000000, 32'hAAAAAAAA, 32'h55555555};
     }
 
 endclass
@@ -41,7 +41,6 @@ endclass
 class alu_sequence_illegal_opcode #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) extends alu_sequence #(BUS_WIDTH, OPCODE_WIDTH);
 
     `uvm_object_param_utils(alu_sequence_illegal_opcode #(BUS_WIDTH, OPCODE_WIDTH));
-    alu_sequence_item #(BUS_WIDTH, OPCODE_WIDTH) seq_item;
     
     // Constructor
 
@@ -70,7 +69,7 @@ class alu_sequence_illegal_opcode #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) ex
     }
 
     constraint imme_value_boundary_c {
-        seq_item.imme_value inside {32'h00000000,  32'h00000001,  32'hFFFFFFFF,  32'h7FFFFFFF,  32'h80000000, 32'hAAAAAAAA, 32'h55555555};
+        seq_item.imme_rs inside {32'h00000000,  32'h00000001,  32'hFFFFFFFF,  32'h7FFFFFFF,  32'h80000000, 32'hAAAAAAAA, 32'h55555555};
     }
 
 endclass
@@ -78,7 +77,6 @@ endclass
 class alu_sequence_legal_opcode #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) extends alu_sequence #(BUS_WIDTH, OPCODE_WIDTH);
 
     `uvm_object_param_utils(alu_sequence_legal_opcode #(BUS_WIDTH, OPCODE_WIDTH));
-    alu_sequence_item #(BUS_WIDTH, OPCODE_WIDTH) seq_item;
     
     // Constructor
 
@@ -107,7 +105,7 @@ class alu_sequence_legal_opcode #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) exte
     }
 
     constraint imme_value_boundary_c {
-        seq_item.imme_value inside {32'h00000000,  32'h00000001,  32'hFFFFFFFF,  32'h7FFFFFFF,  32'h80000000, 32'hAAAAAAAA, 32'h55555555};
+        seq_item.imme_rs inside {32'h00000000,  32'h00000001,  32'hFFFFFFFF,  32'h7FFFFFFF,  32'h80000000, 32'hAAAAAAAA, 32'h55555555};
     }
 
 endclass
