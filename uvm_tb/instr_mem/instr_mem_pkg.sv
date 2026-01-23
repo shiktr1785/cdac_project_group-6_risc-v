@@ -13,7 +13,3 @@ package instr_mem_pkg;
 endpackage
 
 `endif
-
-
-
-

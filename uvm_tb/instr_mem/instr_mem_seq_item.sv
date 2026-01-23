@@ -37,7 +37,9 @@ class instr_mem_seq_item extends uvm_sequence_item;
         //Prints the status of the next_instr
         `uvm_info("next_instr_status", $sformatf("next_instr = %0b", next_instr), UVM_LOW)  
     endfunction
+
 endclass:instr_mem_seq_item
     
 `endif
+
 
