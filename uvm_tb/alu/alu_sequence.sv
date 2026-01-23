@@ -26,15 +26,15 @@ class alu_sequence #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) extends uvm_seque
 
     constraint opcode_c {
         if (seq_item.inject_illegal_opcode) 
-            !(seq_item.opcode inside { 4'b0000, 4'b1000, 4'b0001, 4'b0010, 4'b0011, 4'b0100, 4'b0101, 4'b1101, 4'b0110 ,4'b0111});
+            soft !(seq_item.opcode inside { 4'b0000, 4'b1000, 4'b0001, 4'b0010, 4'b0011, 4'b0100, 4'b0101, 4'b1101, 4'b0110 ,4'b0111});
         else 
-            seq_item.opcode inside { 4'b0000, 4'b1000, 4'b0001, 4'b0010, 4'b0011, 4'b0100, 4'b0101, 4'b1101, 4'b0110 ,4'b0111};
+            soft seq_item.opcode inside { 4'b0000, 4'b1000, 4'b0001, 4'b0010, 4'b0011, 4'b0100, 4'b0101, 4'b1101, 4'b0110 ,4'b0111};
     }
 
     constraint boundary_c {
-        seq_item.rs_data inside {32'h00000000,  32'h00000001,  32'hFFFFFFFF,  32'h7FFFFFFF,  32'h80000000, 32'hAAAAAAAA, 32'h55555555};
+        soft seq_item.rs_data inside {32'h00000000,  32'h00000001,  32'hFFFFFFFF,  32'h7FFFFFFF,  32'h80000000, 32'hAAAAAAAA, 32'h55555555};
         if (seq_item.rs_data_sel) 
-            seq_item.imme_value inside {32'h00000000,  32'h00000001,  32'hFFFFFFFF,  32'h7FFFFFFF,  32'h80000000, 32'hAAAAAAAA, 32'h55555555}; // only taken as operand when rs_data_sel is 1
+            soft seq_item.imme_value inside {32'h00000000,  32'h00000001,  32'hFFFFFFFF,  32'h7FFFFFFF,  32'h80000000, 32'hAAAAAAAA, 32'h55555555}; // only taken as operand when rs_data_sel is 1
     }
 
 endclass
