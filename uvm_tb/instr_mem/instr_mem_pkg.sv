@@ -10,6 +10,6 @@ package instr_mem_pkg;
     `include "instr_mem_seq_item.sv"
     `include "instr_mem_sequence.sv"
     
-endpackage
+endpackage: instr_mem_pkg
 
 `endif

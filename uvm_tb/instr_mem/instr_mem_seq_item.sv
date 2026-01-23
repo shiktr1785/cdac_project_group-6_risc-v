@@ -28,7 +28,7 @@ class instr_mem_seq_item #(
     (current_pc>=64)-> next_instr==1;
     }
 
-    //Constructor
+     //Constructor
     function new(string name = "instr_mem_seq_item");
         super.new(name);
         IOB_c.constraint_mode(1); //Enable IOB constraint by default
