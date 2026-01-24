@@ -5,6 +5,9 @@ class alu_monitor #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) extends uvm_monito
 
     `uvm_component_param_utils(alu_monitor #(BUS_WIDTH, OPCODE_WIDTH))
 
+    // Virtual interface
+    virtual alu_if #(BUS_WIDTH, OPCODE_WIDTH) alu_vif;
+
     // Analysis port to send observed sequence items
     uvm_analysis_port #(alu_sequence_item #(BUS_WIDTH, OPCODE_WIDTH)) ap;
 
@@ -20,13 +23,13 @@ class alu_monitor #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) extends uvm_monito
         forever begin
             seq_item = alu_sequence_item #(BUS_WIDTH, OPCODE_WIDTH)::type_id::create("seq_item");
             // Wait for a clock edge or some event to sample data
-            @(posedge clk); // Assuming clk is accessible here
+            @(posedge alu_vif.clk);
             // Sample DUT signals and populate seq_item
-            seq_item.rs_data       = dut.rs_data;       // Replace with actual DUT signal
-            seq_item.imme_rs       = dut.imme_rs;       // Replace with actual DUT signal
-            seq_item.opcode        = dut.opcode;        // Replace with actual DUT signal
-            seq_item.alu_data_out  = dut.alu_data_out;  // Replace with actual DUT signal
-            seq_item.alu_data_valid= dut.alu_data_valid;// Replace with actual DUT signal
+            seq_item.rs_data       = alu_vif.rs_data;       // Replace with actual DUT signal
+            seq_item.imme_rs       = alu_vif.imme_rs;       // Replace with actual DUT signal
+            seq_item.opcode        = alu_vif.opcode;        // Replace with actual DUT signal
+            seq_item.alu_data_out  = alu_vif.alu_data_out;  // Replace with actual DUT signal
+            seq_item.alu_data_valid= alu_vif.alu_data_valid;// Replace with actual DUT signal
 
             // Send the sampled item through the analysis port
             ap.write(seq_item);
