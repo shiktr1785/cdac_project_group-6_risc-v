@@ -37,7 +37,7 @@ class instr_mem_driver #(BUS_WIDTH=32) extends uvm_driver #(instr_mem_seq_item#(
             @(posedge vif.clk);
         end
         //Drive the instruction to the interface
-        `uvm_info("INSTR_MEM_DRIVER", $sformatf("Driving instruction: 0x%0h at PC: %0d", req.instruction, req.current_pc), UVM_LOW)
+        `uvm_info("INSTR_MEM_DRIVER", $sformatf("Driving instruction: 0x%0h", req.instruction), UVM_LOW)
         vif.instruction <= req.instruction;
         vif.instr_valid <= 1'b1;
         //Wait for one cycle to hold this signal  
