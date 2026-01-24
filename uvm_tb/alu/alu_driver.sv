@@ -27,6 +27,12 @@ class alu_driver #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) extends uvm_driver 
 
     task run_phase(uvm_phase phase);
         alu_sequence_item #(BUS_WIDTH, OPCODE_WIDTH) seq_item;
+
+        // Best practice: Initialize interface to idle state
+        alu_vif.rs_data <= 0;
+        alu_vif.imme_rs <= 0;
+        alu_vif.opcode  <= 0;
+
         forever begin
             // Get the next sequence item
             seq_item = null;
@@ -36,7 +42,6 @@ class alu_driver #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) extends uvm_driver 
             alu_vif.rs_data      <= seq_item.rs_data;
             alu_vif.imme_rs      <= seq_item.imme_rs;
             alu_vif.opcode       <= seq_item.opcode;
-            alu_vif.valid        <= 1'b1;
 
             // Wait for a clock cycle
             @(posedge alu_vif.clk);
