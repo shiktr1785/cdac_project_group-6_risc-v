@@ -11,6 +11,31 @@ class alu_monitor #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) extends uvm_monito
     // Analysis port to send observed sequence items
     uvm_analysis_port #(alu_sequence_item #(BUS_WIDTH, OPCODE_WIDTH)) ap;
 
+    // Cover group for monitoring coverage
+
+    covergroup alu_monitor_cg;
+
+        // Coverpoint for opcode
+        coverpoint alu_vif.opcode {
+            bins valid_opcodes = {4'b0000, 4'b1000, 4'b0001, 4'b0010, 4'b0011, 4'b0100, 4'b0101, 4'b1101, 4'b0110 ,4'b0111};
+            bins illegal_opcodes = default;
+        }
+
+        // Coverpoint for rs_data
+        coverpoint alu_vif.rs_data {
+            bins boundary_values = {32'h00000000,  32'h00000001,  32'hFFFFFFFF,  32'h7FFFFFFF,  32'h80000000, 32'hAAAAAAAA, 32'h55555555};
+            bins random_values = default;
+        }
+
+        // Coverpoint for imme_rs
+        coverpoint alu_vif.imme_rs {
+            bins boundary_values = {32'h00000000,  32'h00000001,  32'hFFFFFFFF,  32'h7FFFFFFF,  32'h80000000, 32'hAAAAAAAA, 32'h55555555};
+            bins random_values = default;
+        }
+
+
+    endgroup : alu_monitor_cg
+
     // Constructor
     function new(string name, uvm_component parent);
         super.new(name, parent);
