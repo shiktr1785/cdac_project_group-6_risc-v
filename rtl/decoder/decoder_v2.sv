@@ -1,7 +1,7 @@
 module decoder_v2 (
     // For alu
     output logic [ 3:0] opcode,         // {funct7,funct3}
-    output logic [31:0] imme_value,     //Sign extended output immediate data
+    output logic [31:0] imme_data,     //Sign extended output immediate data
     output logic        rd2_imme_sel,   //Selecting between immediate and rs2 data in mux,
     // For reg file
     output logic [14:0] rs1_rs2_rd,
@@ -131,13 +131,13 @@ module decoder_v2 (
 
     // Immediate generation
     if (decoded_instr_type == I_TYPE) begin
-      imme_value = {{21{instr_reg[31]}}, instr_reg[30:20]};
+      imme_data = {{21{instr_reg[31]}}, instr_reg[30:20]};
     end else if (decoded_instr_type == S_TYPE) begin
-      imme_value = {{21{instr_reg[31]}}, instr_reg[30:25], instr_reg[11:7]};
-      // Note: S-Type immediate split is different in standard RISC-V
-      // but kept close to your logic logic for simplicity.
+      imme_data = {{21{instr_reg[31]}}, instr_reg[30:25], instr_reg[11:7]};
+      // Custom S-Type instruction to put values in reg file 
+      // Since we dont have a data memory
     end else begin
-      imme_value = 32'b0;
+      imme_data = 32'b0;
     end
 
     // FSM Output Control
@@ -153,10 +153,10 @@ module decoder_v2 (
 
       STATE_RS1_RS2_RD_IMME: begin
         next_instr = 1'b0;
-        rs_addr_valid = 1'b1;  // Select RS1
-        rs1_rs2_rd = {instr_reg[19:15], instr_reg[24:20], instr_reg[11:7]};  // rs1 field
+        rs_addr_valid = 1'b1;  // Set Addr_Valid, Regfile has to latch addresses for any instruction
+        rs1_rs2_rd = {instr_reg[19:15], instr_reg[24:20], instr_reg[11:7]};  // assign all addresses field
         if (decoded_instr_type == I_TYPE) begin
-          rd2_imme_sel = 1'b0;
+          rd2_imme_sel = 1'b0; //0 for imme and 1 for rs2 like in block diagram
           rs_store = 1'b0;
           rd_wr_en = 1'b1;
         end else if (decoded_instr_type == S_TYPE) begin
@@ -168,7 +168,7 @@ module decoder_v2 (
           rd2_imme_sel = 1'b1;
           rd_wr_en = 1'b1;
         end
-      end  // STATE_RS1
+      end  // STATE_RS1_RS2_RD_IMME
 
 
       STATE_EXECUTE: begin
@@ -182,7 +182,7 @@ module decoder_v2 (
         end else begin
           rd_wr_en = 1'b0;
         end
-      end
+      end //STATE_EXECUTE
       default: begin
         next_instr = 1'b1;
         rs_addr_valid = 1'b0;
@@ -190,9 +190,10 @@ module decoder_v2 (
         rs_store = 1'b0;
         rd2_imme_sel = 1'b1;
         rd_wr_en = 1'b0;
-      end
-    endcase
+      end //DEFAULT
+    endcase //Output Control FSM
   end
 
 
 endmodule
+
