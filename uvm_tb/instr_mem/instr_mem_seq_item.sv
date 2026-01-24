@@ -1,14 +1,15 @@
 `ifndef __INSTR_MEM_SEQ_ITEM_SV
 `define __INSTR_MEM_SEQ_ITEM_SV
 
-class instr_mem_seq_item extends uvm_sequence_item;
+class instr_mem_seq_item#(BUS_WIDTH = 32) extends uvm_sequence_item;
     
     //Factory Registration
-    `uvm_object_utils(instr_mem_seq_item)
+    `uvm_object_utils(instr_mem_seq_item#(BUS_WIDTH))
     // Data members
     // 1 - OP_done,push out the instruction; 0 - Stop instruction 
-    rand bit           next_instr;
-         bit [31:0]    instruction;
+    rand bit                    next_instr;
+         bit [BUS_WIDTH-1:0]    instruction;
+         bit                    instr_valid;
 
     //To track current PC
      int current_pc;
