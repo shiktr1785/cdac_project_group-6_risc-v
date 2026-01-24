@@ -157,7 +157,7 @@ module decoder_v2 (
         if (decoded_instr_type == I_TYPE) begin
           rd2_imme_sel = 1'b0;
           rs_store = 1'b0;
-          rd_wr_en = 1'b1;
+          rd_wr_en = 1'b0;
         end else if (decoded_instr_type == S_TYPE) begin
           rs_store = 1'b1;
           rd2_imme_sel = 1'b0;
@@ -165,7 +165,7 @@ module decoder_v2 (
         end else begin
           rs_store = 1'b0;
           rd2_imme_sel = 1'b1;
-          rd_wr_en = 1'b1;
+          rd_wr_en = 1'b0;
         end
       end  // STATE_RS1_RS2_RD_IMME
 
