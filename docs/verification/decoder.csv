@@ -1,0 +1,10 @@
+ID,Feature / Requirement,Stimulus / Space,Coverage Item(s),Test(s),Metric Target,Status
+DEC_01,Sample instruction only when valid,Random instr_valid toggling,Valid sampling,Invalid instr test,100%,OPEN
+DEC_02,Opcode width and range,All opcode values,Opcode coverage,Opcode sweep test,100%,OPEN
+DEC_03,Illegal opcode handling,Invalid opcodes,Illegal opcode bin,Negative opcode test,100%,OPEN
+DEC_04,Immediate decode correctness,Immediate instructions,Immediate coverage,Immediate decode test,100%,OPEN
+DEC_05,Register address decode,Random addresses,Address field coverage,Reg addr test,100%,OPEN
+DEC_06,rs_addr_valid behavior,Valid/invalid instr,Addr validity coverage,Addr validity test,100%,OPEN
+DEC_07,rs2_imme_sel correctness,Mix instr types,Mux select coverage,Operand select test,100%,OPEN
+DEC_08,rd_wr_en behavior,Write/non-write instr,Write enable coverage,Reg write test,100%,OPEN
+DEC_09,next_instr on op_done,Random ALU latency,op_done-next_instr cross,Completion handshake test,100%,OPEN

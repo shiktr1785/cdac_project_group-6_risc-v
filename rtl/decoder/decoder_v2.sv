@@ -134,8 +134,7 @@ module decoder_v2 (
       imme_data = {{21{instr_reg[31]}}, instr_reg[30:20]};
     end else if (decoded_instr_type == S_TYPE) begin
       imme_data = {{21{instr_reg[31]}}, instr_reg[30:25], instr_reg[11:7]};
-      // Note: S-Type immediate split is different in standard RISC-V
-      // but kept close to your logic logic for simplicity.
+      // Custom S-Type instruction to put immediate into reg file
     end else begin
       imme_data = 32'b0;
     end
@@ -153,12 +152,12 @@ module decoder_v2 (
 
       STATE_RS1_RS2_RD_IMME: begin
         next_instr = 1'b0;
-        rs_addr_valid = 1'b1;  // Select RS1
-        rs1_rs2_rd = {instr_reg[19:15], instr_reg[24:20], instr_reg[11:7]};  // rs1 field
+        rs_addr_valid = 1'b1;  // make valid high because reg file should latch addr no matter what
+        rs1_rs2_rd = {instr_reg[19:15], instr_reg[24:20], instr_reg[11:7]};  // All three addresses assigned
         if (decoded_instr_type == I_TYPE) begin
           rd2_imme_sel = 1'b0;
           rs_store = 1'b0;
-          rd_wr_en = 1'b1;
+          rd_wr_en = 1'b0;
         end else if (decoded_instr_type == S_TYPE) begin
           rs_store = 1'b1;
           rd2_imme_sel = 1'b0;
@@ -166,9 +165,9 @@ module decoder_v2 (
         end else begin
           rs_store = 1'b0;
           rd2_imme_sel = 1'b1;
-          rd_wr_en = 1'b1;
+          rd_wr_en = 1'b0;
         end
-      end  // STATE_RS1
+      end  // STATE_RS1_RS2_RD_IMME
 
 
       STATE_EXECUTE: begin
@@ -182,7 +181,7 @@ module decoder_v2 (
         end else begin
           rd_wr_en = 1'b0;
         end
-      end
+      end //STATE_EXECUTE
       default: begin
         next_instr = 1'b1;
         rs_addr_valid = 1'b0;
@@ -190,8 +189,8 @@ module decoder_v2 (
         rs_store = 1'b0;
         rd2_imme_sel = 1'b1;
         rd_wr_en = 1'b0;
-      end
-    endcase
+      end //DEFAULT
+    endcase //OUTPUT FSM
   end
 
 
