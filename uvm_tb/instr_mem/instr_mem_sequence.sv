@@ -53,7 +53,7 @@ class oob_instr_mem_sequence#(BUS_WIDTH = 32) extends instr_mem_sequence#(BUS_WI
 
     function new(string name = "oob_instr_mem_sequence");
         super.new(name);
-    endfunction: new
+    endfunction
 
     virtual task body();
         instr_mem_seq_item#(BUS_WIDTH) req;
