@@ -1,8 +1,8 @@
 `ifndef __INSTR_MEM_SEQUENCE_SV
 `define __INSTR_MEM_SEQUENCE_SV
 
-class instr_mem_sequence #(int BUS_WIDTH = 32) extends uvm_sequence #(instr_mem_seq_item #(BUS_WIDTH));
-    instr_mem_seq_item #(BUS_WIDTH) req;
+class instr_mem_sequence#(BUS_WIDTH =32) extends uvm_sequence #(instr_mem_seq_item#(BUS_WIDTH));
+
     `uvm_object_utils(instr_mem_sequence#(BUS_WIDTH))
 
     // Memory Depth
@@ -14,7 +14,7 @@ class instr_mem_sequence #(int BUS_WIDTH = 32) extends uvm_sequence #(instr_mem_
     endfunction: new
 
     virtual task body();
-        
+        instr_mem_seq_item#(BUS_WIDTH) req;
         //Create tracker for internal address tracking
         `uvm_info("SEQ","SEQ START",UVM_LOW);
 
@@ -47,9 +47,8 @@ endclass: instr_mem_sequence
 `ifndef __OOB_INSTR_MEM_SEQUENCE_SV
 `define __OOB_INSTR_MEM_SEQUENCE_SV
 
-class oob_instr_mem_sequence #(int BUS_WIDTH = 32) extends instr_mem_sequence #(BUS_WIDTH);
+class oob_instr_mem_sequence#(BUS_WIDTH = 32) extends instr_mem_sequence#(BUS_WIDTH);
 
-    instr_mem_seq_item #(BUS_WIDTH) req;
     `uvm_object_utils(oob_instr_mem_sequence#(BUS_WIDTH))
 
     function new(string name = "oob_instr_mem_sequence");
@@ -57,7 +56,7 @@ class oob_instr_mem_sequence #(int BUS_WIDTH = 32) extends instr_mem_sequence #(
     endfunction
 
     virtual task body();
-        
+        instr_mem_seq_item#(BUS_WIDTH) req;
         super.body();  // Call the base class body to complete in-bounds sequence first
 
         `uvm_info("OOB_SEQ","OOB SEQ CROSSING BOUNDS",UVM_NONE)
