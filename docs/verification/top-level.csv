@@ -1,0 +1,5 @@
+ID,Feature / Requirement,Stimulus / Space,Coverage Item(s),Test(s),Metric Target,Status
+SYS_01,End-to-end instruction flow,Random instruction stream,Full pipeline coverage,E2E test,100%,OPEN
+SYS_02,Stall and resume,Random op_done delays,No instr loss,Stall recovery test,100%,OPEN
+SYS_03,Backpressure handling,Hold next_instr low,Flow control coverage,Flow control test,100%,OPEN
+SYS_04,Reset robustness,Random reset timing,Reset coverage,Reset test,100%,OPEN
