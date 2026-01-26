@@ -1,0 +1,7 @@
+ID,Feature / Requirement,Stimulus / Space,Coverage Item(s),Test(s),Metric Target,Status
+ALU_01,Opcode functionality,All valid opcodes,Opcode functional coverage,ALU functional test,100%,OPEN
+ALU_02,Operand selection,Toggle rs2_imme_sel,Operand source coverage,Operand mux test,100%,OPEN
+ALU_03,Two-cycle latency,Latency measurement,Exact 2-cycle latency,Latency test,100%,OPEN
+ALU_04,alu_data_valid assertion,Random operands,Data valid timing,Data valid test,100%,OPEN
+ALU_05,Output stability,Hold inputs steady,No spurious valid,Stability test,100%,OPEN
+ALU_06,Back-to-back ops,Continuous stream,Stress coverage,Stress test,100%,OPEN
