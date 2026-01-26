@@ -40,6 +40,7 @@ class alu_monitor #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) extends uvm_monito
     function new(string name, uvm_component parent);
         super.new(name, parent);
         ap = new("ap", this);
+        `uvm_info(get_name(), "Constructor", UVM_HIGH)
     endfunction
 
     // Run phase
@@ -59,6 +60,7 @@ class alu_monitor #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) extends uvm_monito
             // Send the sampled item through the analysis port
             ap.write(seq_item);
         end
+        `uvm_info(get_name(), "Run_phase", UVM_HIGH)
     endtask : run_phase
 
 endclass : alu_monitor
