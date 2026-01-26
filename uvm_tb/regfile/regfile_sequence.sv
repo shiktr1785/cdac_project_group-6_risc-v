@@ -29,7 +29,30 @@ class regfile_sequence #(int BUS_WIDTH=32 , int ADDR_WIDTH=15) extends uvm_seque
 
     // Constraints
 
+    constraint imme_data_boundary_c{
+        seq_itemimme_data inside { 32'h00000000, 32'h00000001, 32'hFFFFFFFF, 32'h7FFFFFFF, 32'h80000000, 32'hAAAAAAAA, 32'h55555555};
+    }
 
+    constraint rs1_rs2_rd_c {
+    // rd: Bits [14:10] - Target 0 (hardwired), 1, 30, 31 (boundaries)
+    seq_item.rs1_rs2_rd[ADDR_WIDTH-1:ADDR_WIDTH-5] inside {
+        5'd0, 5'd1, 5'd15, 5'd16, 5'd30, 5'd31
+    };
+
+    // rs2: Bits [9:5] - Target 0, 1, 30, 31
+    seq_item.rs1_rs2_rd[ADDR_WIDTH-6:ADDR_WIDTH-10] inside {
+        5'd0, 5'd1, 5'd15, 5'd16, 5'd30, 5'd31
+    };
+
+    // rs1: Bits [4:0] - Target 0, 1, 30, 31
+    seq_item.rs1_rs2_rd[ADDR_WIDTH-11:ADDR_WIDTH-15] inside {
+        5'd0, 5'd1, 5'd15, 5'd16, 5'd30, 5'd31
+    };
+}
+
+    constraint alu_data_out_boundary_c{
+        seq_item.alu_data_out inside { 32'h00000000, 32'h00000001, 32'hFFFFFFFF, 32'h7FFFFFFF, 32'h80000000, 32'hAAAAAAAA, 32'h55555555};
+    }
     
 endclass: regfile_sequence 
 
