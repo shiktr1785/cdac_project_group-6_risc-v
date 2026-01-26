@@ -23,7 +23,7 @@ module instr_mem_v1 (
   end
   initial begin
     // 2. Loop through EVERY address
-    for (int i = 0; i < DEPTH; i++) begin
+      for (int i = 0; i < 63; i++) begin
 
       // 3. Select instruction based on address modulo 3
       // This creates a repeating pattern: I -> R -> S -> I -> R ...
