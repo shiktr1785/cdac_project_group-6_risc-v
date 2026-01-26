@@ -1,5 +1,8 @@
 `include "rtl/common/includes.sv"
-module top_v2;
+module top_v2(
+  input wire clk,
+  input wire reset_n
+             );
 
   wire [ 3:0] opcode;
   wire [31:0] imme_data;
@@ -12,8 +15,6 @@ module top_v2;
   wire [31:0] instr;
   wire        instr_valid;
   wire        op_done;
-  wire        clk;
-  wire        reset_n;
   wire [31:0] rs_data_mux;
   wire [31:0] rs_data;
   wire [31:0] alu_data_out;
