@@ -1,14 +1,12 @@
-module instr_mem_v1 #(
-    int DEPTH = 64
-) (
+module instr_mem_v1 (
     output logic [31:0] instr,
     input  logic        next_op,
     input  logic        clock,
     input  logic        reset_n
 );
 
-  logic [             31:0] instr_mem                          [DEPTH-1];  //memory block
-  logic [$clog2(DEPTH)-1:0] current_address;  //current_address
+    logic [31:0]  instr_mem [63];  //memory block
+    logic [5:0]  current_address;  //current_address
   always_ff @(posedge clock or negedge reset_n) begin : mem_block
     if (!reset_n) begin
       current_address <= 6'b0;
