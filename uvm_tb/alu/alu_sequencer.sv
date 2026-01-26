@@ -9,6 +9,7 @@ class alu_sequencer #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) extends uvm_sequ
 
     function new(string name, uvm_component parent);
         super.new(name, parent);
+        `uvm_info(get_name(), "Constructor", UVM_HIGH)
     endfunction
 endclass : alu_sequencer
 
