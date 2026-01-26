@@ -10,6 +10,7 @@ class alu_sequence #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) extends uvm_seque
 
     function new(string name = "alu_sequence");
         super.new(name);
+        `uvm_info(get_name(), "Constructor", UVM_HIGH)
     endfunction
 
     // Body task
@@ -20,6 +21,7 @@ class alu_sequence #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) extends uvm_seque
         // Start the sequence item
         start_item(seq_item);
         finish_item(seq_item);
+        `uvm_info(get_name(), "Body", UVM_HIGH)
     endtask : body
 
     // Constraints
@@ -46,6 +48,7 @@ class alu_sequence_illegal_opcode #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) ex
 
     function new(string name = "alu_sequence_illegal_opcode");
         super.new(name);
+        `uvm_info(get_name(), "Constructor", UVM_HIGH)
     endfunction
 
     // Body task
@@ -56,6 +59,7 @@ class alu_sequence_illegal_opcode #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) ex
         // Start the sequence item
         start_item(seq_item);
         finish_item(seq_item);
+        `uvm_info(get_name(), "Body", UVM_HIGH)
     endtask : body
 
     // Constraints for illegal opcode
@@ -82,6 +86,7 @@ class alu_sequence_legal_opcode #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) exte
 
     function new(string name = "alu_sequence_legal_opcode");
         super.new(name);
+        `uvm_info(get_name(), "Constructor", UVM_HIGH)
     endfunction
 
     // Body task
@@ -92,6 +97,7 @@ class alu_sequence_legal_opcode #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) exte
         // Start the sequence item
         start_item(seq_item);
         finish_item(seq_item);
+        `uvm_info(get_name(), "Body", UVM_HIGH)
     endtask : body
 
     // Constraints for legal opcode

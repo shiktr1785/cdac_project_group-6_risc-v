@@ -12,6 +12,7 @@ class alu_driver #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) extends uvm_driver 
 
     function new(string name, uvm_component parent);
         super.new(name, parent);
+        `uvm_info(get_name(), "Constructor", UVM_HIGH)
     endfunction
 
     // Build phase
@@ -21,6 +22,7 @@ class alu_driver #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) extends uvm_driver 
         if(!uvm_config_db#(virtual alu_if #(BUS_WIDTH, OPCODE_WIDTH))::get(this, "", "alu_vif", alu_vif)) begin
             `uvm_fatal("ALU_DRV_BLD", "Virtual interface alu_vif not found")
         end
+        `uvm_info(get_name(), "Build phase", UVM_HIGH)
     endfunction
 
     // Main run phase
@@ -53,6 +55,7 @@ class alu_driver #(int BUS_WIDTH = 32, int OPCODE_WIDTH = 4) extends uvm_driver 
             // Indicate that the item is done
             seq_item_port.item_done();
         end
+        `uvm_info(get_name(), "Run phase", UVM_HIGH)
     endtask : run_phase
 
 endclass : alu_driver
