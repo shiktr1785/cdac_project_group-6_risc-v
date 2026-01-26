@@ -10,6 +10,9 @@ package regfile_tb_pkg;
 
     `include "regfile_sequence_item.sv"
     `include "regfile_sequence.sv"
+    `include "regfile_driver.sv"
+    `include "regfile_sequencer.sv"
+    `include "regfile_monitor.sv"
 
 endpackage : regfile_tb_pkg
 
