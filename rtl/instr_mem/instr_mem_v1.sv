@@ -1,18 +1,18 @@
 module instr_mem_v1 (
     output logic [31:0] instr,
-    input  logic        next_op,
-    input  logic        clock,
+    input  logic        next_instr,
+    input  logic        clk,
     input  logic        reset_n
 );
 
     logic [31:0]  instr_mem [63];  //memory block
     logic [5:0]  current_address;  //current_address
-  always_ff @(posedge clock or negedge reset_n) begin : mem_block
+  always_ff @(posedge clk or negedge reset_n) begin : mem_block
     if (!reset_n) begin
       current_address <= 6'b0;
       instr <= 32'b0;
     end else begin
-      if (next_op) begin
+        if (next_instr) begin
         instr <= instr_mem[current_address];
         current_address <= current_address + 1'b1;
       end else begin
