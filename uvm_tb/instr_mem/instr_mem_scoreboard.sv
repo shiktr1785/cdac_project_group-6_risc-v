@@ -31,9 +31,9 @@ class instr_mem_scoreboard #(parameter BUS_WIDTH = 32) extends uvm_scoreboard;
 
         //Compare actual and expected
         if (item.instruction !== expected_data) begin
-            `uvm_error("SCB_MISMATCH", $sformatf("PC: %0d | Expected: 0x%0h | Actual: 0x%0h", ref_model.current_pc - 1, expected_data, item.instruction))
+            `uvm_error("SCB_MISMATCH", $sformatf("| Expected: 0x%0h | Actual: 0x%0h",expected_data, item.instruction))
         end else begin
-            `uvm_info("SCB_MATCH", $sformatf("PC: %0d | Data: 0x%0h Match", ref_model.current_pc - 1, item.instruction), UVM_HIGH)
+            `uvm_info("SCB_MATCH", $sformatf("| Data: 0x%0h Match",item.instruction), UVM_HIGH)
         end
     endfunction : write
 
