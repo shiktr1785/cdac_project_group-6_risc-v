@@ -28,7 +28,7 @@ class regfile_monitor #(int BUS_WIDTH = 32, int ADDR_WIDTH = 15) extends uvm_mon
         }
 
         // 1. Coverage for rd [14:10]
-        cp_rd: coverpoint regfile_vif.rs1_rs2_rd[14:10] {
+        cp_rd: coverpoint regfile_vif.rs1_rs2_rd[4:0] {
             bins zero       = {5'd0};
             bins first      = {5'd1};
             bins mid_low    = {5'd15};
@@ -46,7 +46,7 @@ class regfile_monitor #(int BUS_WIDTH = 32, int ADDR_WIDTH = 15) extends uvm_mon
         }
 
         // 3. Coverage for rs1 [4:0]
-        cp_rs1: coverpoint regfile_vif.rs1_rs2_rd[4:0] {
+        cp_rs1: coverpoint regfile_vif.rs1_rs2_rd[14:10] {
             bins zero       = {5'd0};
             bins last       = {5'd31};
             bins mid_range  = {[1:30]};
@@ -69,16 +69,16 @@ class regfile_monitor #(int BUS_WIDTH = 32, int ADDR_WIDTH = 15) extends uvm_mon
             // Wait for a clock edge or some event to sample data
             @(posedge regfile_vif.clk);
             // Sample DUT signals and populate seq_item
-            seq_item.rs_store       = regfile_vif.rs_store;       // Replace with actual DUT signal
-            seq_item.rs_addr_valid  = regfile_vif.rs_addr_valid;  // Replace with actual DUT signal
-            seq_item.imme_data      = regfile_vif.imme_data;      // Replace with actual DUT signal 
-            seq_item.rd_wr_en       = regfile_vif.rd_wr_en;      // Replace with actual DUT signal  
-            seq_item.rs1_rs2_rd     = regfile_vif.rs1_rs2_rd;     // Replace with actual DUT signal
-            seq_item.alu_data_valid = regfile_vif.alu_data_valid; // Replace with actual DUT signal
-            seq_item.alu_data_out   = regfile_vif.alu_data_out;   // Replace with actual DUT signal
-            seq_item.op_done        = regfile_vif.op_done;        // Replace with actual DUT signal
-            seq_item.rs_data_mux    = regfile_vif.rs_data_mux;    // Replace with actual DUT signal
-            seq_item.rs_data        = regfile_vif.rs_data;        // Replace with actual DUT signal
+            seq_item.rs_store       = regfile_vif.rs_store;
+            seq_item.rs_addr_valid  = regfile_vif.rs_addr_valid;  
+            seq_item.imme_data      = regfile_vif.imme_data;       
+            seq_item.rd_wr_en       = regfile_vif.rd_wr_en;       
+            seq_item.rs1_rs2_rd     = regfile_vif.rs1_rs2_rd;     
+            seq_item.alu_data_valid = regfile_vif.alu_data_valid; 
+            seq_item.alu_data_out   = regfile_vif.alu_data_out;   
+            seq_item.op_done        = regfile_vif.op_done;        
+            seq_item.rs_data_mux    = regfile_vif.rs_data_mux;    
+            seq_item.rs_data        = regfile_vif.rs_data;        
 
             // Send the sampled item through the analysis port
             ap.write(seq_item);
