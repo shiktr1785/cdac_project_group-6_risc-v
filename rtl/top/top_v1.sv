@@ -1,5 +1,5 @@
 // Code your design here
-module top(
+module top_v1(
 		input bit clock,
 		input reset_n
 );
@@ -39,7 +39,7 @@ module top(
   assign op_done_final = op_done;
   
   // rd2_imme_sel - 0 for imme, 1 for rs2
-  assign w_imme_rs = (w_rd2_imme_sel) ? w_rs_data_mux : w_imme_data;
+  assign imme_rs = (rd2_imme_sel) ? rs_data_mux : imme_data;
   
   // Module Instantiations
   
