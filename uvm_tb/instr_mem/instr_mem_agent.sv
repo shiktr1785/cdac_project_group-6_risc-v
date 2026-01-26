@@ -30,7 +30,7 @@ class instr_mem_agent #(parameter BUS_WIDTH = 32) extends uvm_agent;
 
         `uvm_info(get_name(),"Connect Phase",UVM_MEDIUM)
         
-    endfunction: connect_phase
+    endfunction:connect_phase
 endclass
 
 `endif
