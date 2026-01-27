@@ -12,6 +12,12 @@ package instr_mem_pkg;
     `include "instr_mem_sequencer.sv"
     `include "instr_mem_driver.sv"
     `include "instr_mem_monitor.sv"
+    `include "instr_mem_reference_model.sv"
+    `include "instr_mem_scoreboard.sv"
+    `include "instr_mem_agent.sv"
+    `include "instr_mem_env.sv"
+
 endpackage
 
 `endif
+
