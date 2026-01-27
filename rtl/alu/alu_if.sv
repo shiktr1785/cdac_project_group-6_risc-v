@@ -3,17 +3,61 @@
 
 interface alu_if#(
     integer BUS_WIDTH = 32, 
-    integer OPCODE_WIDTH = 4);
+    integer OPCODE_WIDTH = 4)
+    (input bit clk);
 
-    logic [BUS_WIDTH-1:0]       imme_value;     // Immediate operations
+    logic [BUS_WIDTH-1:0]       imme_rs;        // Immediate operations
     logic [BUS_WIDTH-1:0]       rs_data;        // RS Data
-    logic                       rs_data_sel;    // Selecting either rs1 or rs2
-    logic                       rs_data_valid;  // Check whether valid or not
-    logic [OPCODE_WIDTH-1:0]    op_code;        // Op_code
-    logic [BUS_WIDTH-1:0]       alu_out;        // Output from ALU
-    logic                       alu_valid_out;  // Check whether output from alu valid or not
-    logic                       op_done;        // Current instruction done, now move on to the next instruction
-    // op_done is response from DUT
+    logic [OPCODE_WIDTH-1:0]    opcode;         // Op_code
+    logic [BUS_WIDTH-1:0]       alu_data_out;   // Output from ALU
+    logic                       alu_data_valid; // Check whether output from alu valid or not
+
+     
+    `ifndef VERILATOR
+    
+    clocking drv_cb @(posedge clk);
+
+        default input #1step output #1;      
+        output imme_rs;
+        output opcode;
+        
+        input rs_data;
+        input alu_data_out;
+        input alu_data_valid;
+
+    endclocking
+
+    clocking mon_cb @(posedge clk);
+        
+        default input #1step output #1;
+        input rs_data;
+        input alu_data_out;
+        input alu_data_valid;
+        input imme_rs;
+        input opcode;
+
+    endclocking
+    `endif
+
+    //driver direction
+    modport driver(
+        output imme_rs,
+        output opcode,
+        
+        input rs_data,
+        input alu_data_out,
+        input alu_data_valid
+
+    ); 
+
+    //monitor direction
+    modport monitor(
+        input rs_data,
+        input alu_data_out,
+        input alu_data_valid,
+        input imme_rs,
+        input opcode
+    );
 
 endinterface
 

@@ -1,7 +1,5 @@
 # Verification files
-tb/**        @shiktr1785 @Ritik-Kalmegh
-uvm_tb/**    @shiktr1785
-tests/**     @shiktr1785
+uvm_tb/**    @shiktr1785 @AlenSojan @VMOnGit @Ritik-Kalmegh
 
 # Design files
 rtl/**       @AlenSojan @VMOnGit @Ritik-Kalmegh @shiktr1785 @PrithwinPrakash
