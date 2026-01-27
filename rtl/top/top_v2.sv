@@ -1,5 +1,8 @@
 `include "rtl/common/includes.sv"
-module top_v2;
+module top_v2(
+  input wire clk,
+  input wire reset_n
+             );
 
   wire [ 3:0] opcode;
   wire [31:0] imme_data;
@@ -12,13 +15,11 @@ module top_v2;
   wire [31:0] instr;
   wire        instr_valid;
   wire        op_done;
-  wire        clk;
-  wire        reset_n;
   wire [31:0] rs_data_mux;
   wire [31:0] rs_data;
   wire [31:0] alu_data_out;
   wire        alu_data_valid;
-
+  wire [31:0] imme_rs;
   decoder_v2 dv2 (
       // For alu
       .opcode(opcode),  // {funct7,funct3}
@@ -44,7 +45,7 @@ module top_v2;
       .clk(clk),
       .rs_addr_valid(rs_addr_valid),
       .rs1_rs2_rd(rs1_rs2_rd),
-      .rs_wr_en(rs_wr_en),
+      .rd_wr_en(rd_wr_en),
       .rs_store(rs_store),
       .imme_data(imme_data),
       .alu_data_out(alu_data_out),
