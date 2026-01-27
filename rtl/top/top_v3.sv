@@ -1,4 +1,4 @@
-//`include "rtl/common/includes.sv"
+`include "rtl/common/includes.sv"
 module top_v3 (
     output logic [31:0] alu_data_out,
     output logic [3:0] opcode,
