@@ -2,7 +2,7 @@ module instr_mem_v2 #(
     int DEPTH = 64
 ) (
     output logic [31:0] instr,
-
+    output logic        instr_valid,
     input logic        next_instr,
     input logic [ 5:0] store_address,
     input logic [31:0] store_data,
@@ -18,13 +18,17 @@ module instr_mem_v2 #(
     if (!reset_n) begin
       current_address <= 6'b0;
       instr <= 32'b0;
+      instr_valid <= 1'b0;
     end else begin
       if (store_en) begin  //Store is highest priority
         current_address <= store_address;
+        instr_valid <= 1'b0;
       end else if (next_instr) begin
+        instr_valid <= 1'b1;
         instr <= instr_mem[current_address];
         current_address <= current_address + 1'b1;
       end else begin
+ 	instr_valid <= 1'b0;
         instr <= instr;
         current_address <= current_address;
       end
