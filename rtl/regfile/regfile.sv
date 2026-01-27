@@ -65,4 +65,5 @@ module regfile (
     assign rs_data = (addr_rs1 == 5'b0) ? 32'b0 : reg_file[addr_rs1];
     assign rs_data_mux = (addr_rs2 == 5'b0) ? 32'b0 : reg_file[addr_rs2];
 
-endmodule
+endmodule 
+
