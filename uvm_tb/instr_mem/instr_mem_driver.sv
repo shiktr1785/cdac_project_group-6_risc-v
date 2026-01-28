@@ -10,6 +10,7 @@ class instr_mem_driver #(BUS_WIDTH=32) extends uvm_driver #(instr_mem_seq_item#(
      // Constructor
     function new(string name="instr_mem_driver", uvm_component parent);
         super.new(name, parent);
+         `uvm_info(get_name(), "New", UVM_HIGH) //For debugging
     endfunction
 
     // Build phase
@@ -46,7 +47,9 @@ class instr_mem_driver #(BUS_WIDTH=32) extends uvm_driver #(instr_mem_seq_item#(
 
         seq_item_port.item_done();
         end
-  endtask
+        `uvm_info(get_name(), "Run Phase", UVM_HIGH) //For debugging
+  
+    endtask
 endclass: instr_mem_driver
 
 `endif
