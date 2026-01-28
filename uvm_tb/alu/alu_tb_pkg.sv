@@ -13,6 +13,11 @@ package alu_tb_pkg;
     `include "alu_sequencer.sv"
     `include "alu_monitor.sv"
     `include "alu_driver.sv"
+    `include "alu_agent.sv"
+    `include "alu_scoreboard.sv"
+    `include "alu_env.sv"
+    `include "alu_test.sv"
+    `include "alu.sv"
 endpackage : alu_tb_pkg
 
 `endif
