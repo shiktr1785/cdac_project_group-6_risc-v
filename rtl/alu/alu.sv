@@ -19,9 +19,10 @@ module alu (
     AND  = 4'b0111
 } alu_op_t;
   
-  	assign alu_data_valid = 1'b1;
+  
 
     always_comb begin
+      alu_data_valid = 1'b1;
         case (opcode)
             ADD:  alu_data_out = rs_data + imme_rs;
             SUB:  alu_data_out = rs_data - imme_rs;
@@ -34,7 +35,8 @@ module alu (
           	OR:   alu_data_out = rs_data | imme_rs;
           	XOR:  alu_data_out = rs_data ^ imme_rs;
             
-            default: begin alu_data_out = 32'b0; 
+            default: begin alu_data_out = 32'b0;
+                        alu_data_valid = 1'b0; 
             end
         endcase
     end
