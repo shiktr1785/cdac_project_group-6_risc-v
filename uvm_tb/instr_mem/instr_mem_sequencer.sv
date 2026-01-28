@@ -7,6 +7,7 @@ class instr_mem_sequencer #(parameter BUS_WIDTH = 32) extends uvm_sequencer #(in
 
     function new(string name = "instr_mem_sequencer", uvm_component parent = null);
         super.new(name, parent);
+        `uvm_info(get_name(), "New", UVM_HIGH) //For debugging
     endfunction : new
 
 endclass : instr_mem_sequencer
