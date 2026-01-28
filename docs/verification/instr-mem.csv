@@ -1,0 +1,6 @@
+ID,Feature / Requirement,Stimulus / Space,Coverage Item(s),Test(s),Metric Target,Status
+IM_01,Instruction width 32-bit,Random 32-bit patterns,Instruction width coverage,Basic instr fetch test,100%,OPEN
+IM_02,instr_valid single-cycle pulse,Back-to-back and spaced instr,instr_valid pulse width,instr_valid pulse test,100%,OPEN
+IM_03,instr_valid de-asserts correctly,Continuous stream,No multi-cycle instr_valid,Protocol violation test,0 violations,OPEN
+IM_04,next_instr handshake correctness,Decoder driven next_instr,next_instr ordering,Handshake sequencing test,100%,OPEN
+IM_05,No issue without next_instr,Random decoder stalls,next_instr gating,Backpressure test,100%,OPEN
