@@ -28,3 +28,4 @@ class instr_mem_seq_item#(parameter BUS_WIDTH = 32) extends uvm_sequence_item;
 endclass: instr_mem_seq_item
     
 `endif
+

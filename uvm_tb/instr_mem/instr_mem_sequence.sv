@@ -66,3 +66,4 @@ class oob_instr_mem_sequence#(parameter BUS_WIDTH = 32) extends instr_mem_sequen
 endclass: oob_instr_mem_sequence
 
 `endif
+

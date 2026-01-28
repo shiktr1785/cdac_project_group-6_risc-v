@@ -29,12 +29,8 @@ class instr_mem_driver#(parameter BUS_WIDTH = 32) extends uvm_driver#(instr_mem_
     
         forever begin
             seq_item_port.get_next_item(req);
-            
-            // DRIVE THE INPUT: Send the request to the DUT
             vif.next_instr <= req.next_instr;
-            
             @(posedge vif.clk);
-
             seq_item_port.item_done();
         end
     endtask
@@ -42,3 +38,4 @@ class instr_mem_driver#(parameter BUS_WIDTH = 32) extends uvm_driver#(instr_mem_
 endclass: instr_mem_driver
 
 `endif
+
