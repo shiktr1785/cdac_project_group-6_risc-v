@@ -5,7 +5,7 @@ class regfile_seq_item #(
     int ADDR_WIDTH = 15,
     int BUS_WIDTH = 32
 )extends uvm_sequence_item;
-    `uvm_object_utils(regfile_seq_item);
+    `uvm_object_param_utils(regfile_seq_item #(ADDR_WIDTH, BUS_WIDTH));
 
     // Data members
 
