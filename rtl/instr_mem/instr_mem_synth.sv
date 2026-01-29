@@ -33,4 +33,3 @@ module instr_mem_synth (
   end
 
 endmodule
-

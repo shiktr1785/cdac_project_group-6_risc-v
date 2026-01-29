@@ -3,7 +3,7 @@
 
 //  Class: regfile_sequence 
 //
-class regfile_sequence #(int BUS_WIDTH=32 , int ADDR_WIDTH=15) extends uvm_sequence;
+class regfile_sequence #(int BUS_WIDTH=32 , int ADDR_WIDTH=15) extends uvm_sequence #(regfile_seq_item #(ADDR_WIDTH,BUS_WIDTH));
 
     `uvm_object_param_utils(regfile_sequence #(BUS_WIDTH,ADDR_WIDTH));
     regfile_seq_item #(ADDR_WIDTH,BUS_WIDTH) seq_item;
@@ -30,7 +30,7 @@ class regfile_sequence #(int BUS_WIDTH=32 , int ADDR_WIDTH=15) extends uvm_seque
     // Constraints
 
     constraint imme_data_boundary_c{
-        seq_itemimme_data inside { 32'h00000000, 32'h00000001, 32'hFFFFFFFF, 32'h7FFFFFFF, 32'h80000000, 32'hAAAAAAAA, 32'h55555555};
+        seq_item.imme_data inside { 32'h00000000, 32'h00000001, 32'hFFFFFFFF, 32'h7FFFFFFF, 32'h80000000, 32'hAAAAAAAA, 32'h55555555};
     }
 
     constraint rs1_rs2_rd_c {
