@@ -15,6 +15,8 @@ package instr_mem_pkg;
     `include "instr_mem_scoreboard.sv"
     `include "instr_mem_agent.sv"
     `include "instr_mem_env.sv"
+    `include "instr_mem_tests.sv"
+    `include "instr_mem_tb_top.sv"
 
 endpackage
 
